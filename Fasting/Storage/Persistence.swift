@@ -54,8 +54,12 @@ enum Persistence {
                     endedAt: end, goalHours: 16
                 ))
             }
+            let multiDay = arguments.contains("-DemoMultiDay")
+            let hours = multiDay ? 76 : 12
+            let minutes = multiDay ? 5 : 43
+            let elapsed = TimeInterval(hours * 3_600 + minutes * 60)
             container.mainContext.insert(FastingSession(
-                startedAt: now.addingTimeInterval(-(12 * 3_600 + 43 * 60)), goalHours: 16
+                startedAt: now.addingTimeInterval(-elapsed), goalHours: multiDay ? 72 : 16
             ))
             try container.mainContext.save()
         }

@@ -62,7 +62,7 @@ final class FastingStoreTests: XCTestCase {
         XCTAssertThrowsError(try store.add(start: now, end: now.addingTimeInterval(-60), goalHours: 16, now: now))
         XCTAssertThrowsError(try store.add(start: now, end: now.addingTimeInterval(60), goalHours: 16, now: now))
         XCTAssertThrowsError(try store.start(at: now, goalHours: 0, now: now))
-        XCTAssertThrowsError(try store.start(at: now, goalHours: 49, now: now))
+        XCTAssertThrowsError(try store.start(at: now, goalHours: 8_761, now: now))
         XCTAssertEqual(try db.mainContext.fetchCount(FetchDescriptor<FastingSession>()), 0)
     }
 
@@ -123,13 +123,69 @@ final class FastingStoreTests: XCTestCase {
         XCTAssertEqual(stats.longest, 18 * 3_600)
     }
 
-    func testEmptyStatisticsAndClockBeyondOneDay() {
+    func testEmptyStatisticsAndDayAwareDurations() {
+        let multiDayDuration: TimeInterval = 273_906 // 3 days, 4 hours, 5 minutes, 6 seconds.
         let stats = FastingStatistics(sessions: [])
         XCTAssertEqual(stats.average, 0)
         XCTAssertEqual(stats.longest, 0)
-        XCTAssertEqual(DurationText.clock(25 * 3_600 + 61), "25:01:01")
+        XCTAssertEqual(DurationText.days(25 * 3_600 + 61), 1)
+        XCTAssertEqual(DurationText.clock(25 * 3_600 + 61), "01:01:01")
+        XCTAssertEqual(DurationText.days(multiDayDuration), 3)
+        XCTAssertEqual(DurationText.clock(multiDayDuration), "04:05:06")
+        XCTAssertEqual(DurationText.clock(86_399), "23:59:59")
+        XCTAssertEqual(DurationText.clock(86_400), "00:00:00")
         XCTAssertEqual(DurationText.clock(-10), "00:00:00")
         XCTAssertEqual(DurationText.compact(16 * 3_600 + 30 * 60), "16 h 30 min")
+        XCTAssertEqual(DurationText.compact(3 * 86_400), "3 d")
+        XCTAssertEqual(DurationText.compact(multiDayDuration), "3 d 4 h 5 min")
+        XCTAssertEqual(DurationText.goal(hours: 16), "16 h")
+        XCTAssertEqual(DurationText.goal(hours: 72), "3 d")
+        XCTAssertEqual(DurationText.goal(hours: 73), "3 d 1 h")
+        XCTAssertEqual(DurationText.goal(hours: 360), "15 d")
+    }
+
+    func testThreeDayFastPersistsAndKeepsCountingAfterItsGoal() throws {
+        let directory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+        try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
+        defer { try? FileManager.default.removeItem(at: directory) }
+        let url = directory.appendingPathComponent("multiday.store")
+        let duration: TimeInterval = 273_900 // 3 days, 4 hours, 5 minutes.
+        let start = now.addingTimeInterval(-duration)
+        try autoreleasepool {
+            let db = try container(url: url)
+            try FastingStore(context: db.mainContext).start(at: start, goalHours: 72, now: now)
+        }
+        try autoreleasepool {
+            let db = try container(url: url)
+            let session = try XCTUnwrap(db.mainContext.fetch(FetchDescriptor<FastingSession>()).first)
+            XCTAssertEqual(session.goalHours, 72)
+            XCTAssertEqual(session.targetDate, start.addingTimeInterval(72 * 3_600))
+            XCTAssertTrue(session.isActive)
+            XCTAssertEqual(session.progress(at: now), 1)
+            XCTAssertEqual(session.elapsed(at: now.addingTimeInterval(3_600)), duration + 3_600)
+            try FastingStore(context: db.mainContext).finish(session, at: now, now: now)
+        }
+        let db = try container(url: url)
+        let session = try XCTUnwrap(db.mainContext.fetch(FetchDescriptor<FastingSession>()).first)
+        XCTAssertFalse(session.isActive)
+        XCTAssertTrue(session.reachedGoal)
+        XCTAssertEqual(session.elapsed(at: now.addingTimeInterval(86_400)), duration)
+        XCTAssertEqual(DurationText.compact(session.duration), "3 d 4 h 5 min")
+        XCTAssertEqual(FastingStatistics(sessions: [session]).longest, duration)
+    }
+
+    func testExtendedGoalsAndPastFastsAreStoredInWholeHours() throws {
+        let db = try container()
+        let store = FastingStore(context: db.mainContext)
+        for hours in [49, 72, 360, 8_760] {
+            let session = try store.add(start: now.addingTimeInterval(-TimeInterval(hours) * 3_600),
+                                        end: now, goalHours: hours, now: now)
+            XCTAssertEqual(session.goalHours, hours)
+            XCTAssertEqual(session.duration, TimeInterval(hours) * 3_600)
+            XCTAssertEqual(session.targetDate, now)
+            XCTAssertTrue(session.reachedGoal)
+        }
+        XCTAssertEqual(try ModelContext(db).fetchCount(FetchDescriptor<FastingSession>()), 4)
     }
 
     func testClockChangesAndGoalClamp() {

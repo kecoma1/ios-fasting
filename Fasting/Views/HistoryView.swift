@@ -103,7 +103,7 @@ private struct SessionRow: View {
             VStack(alignment: .leading, spacing: 5) {
                 Text(session.startedAt, format: .dateTime.weekday(.abbreviated).day().month(.abbreviated))
                     .font(.subheadline.weight(.semibold))
-                Text("Goal · \(session.goalHours) h").font(.caption).foregroundStyle(.secondary)
+                Text("Goal · \(DurationText.goal(hours: session.goalHours))").font(.caption).foregroundStyle(.secondary)
             }
             Spacer()
             VStack(alignment: .trailing, spacing: 5) {

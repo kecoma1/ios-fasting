@@ -15,7 +15,7 @@ struct StartFastSheet: View {
                 Section {
                     DatePicker("Start", selection: $startDate, in: ...Date.now)
                         .accessibilityIdentifier("startDatePicker")
-                    LabeledContent("Goal", value: "\(goalHours) h")
+                    LabeledContent("Goal", value: DurationText.goal(hours: goalHours))
                 } footer: { Text("Already fasting? Set the time you started.") }
                 Section {
                     Button("Start Now") {

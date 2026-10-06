@@ -43,7 +43,7 @@ struct TimerView: View {
                     } label: {
                         HStack(spacing: 8) {
                             Image(systemName: "scope")
-                            Text("Goal · \(active?.goalHours ?? goalHours) h")
+                            Text("Goal · \(DurationText.goal(hours: active?.goalHours ?? goalHours))")
                             Image(systemName: "chevron.down").font(.caption.weight(.semibold))
                         }
                         .padding(.horizontal, 10).padding(.vertical, 6)
@@ -135,15 +135,14 @@ struct TimerView: View {
         NavigationStack {
             Form {
                 Section {
-                    Picker("Goal", selection: $selectedGoal) {
-                        ForEach(1...48, id: \.self) { Text("\($0) h").tag($0) }
-                    }
-                    .pickerStyle(.wheel)
+                    GoalDurationPicker(goalHours: $selectedGoal)
                 } footer: { Text("Choose the duration that works for you.") }
             }
             .navigationTitle("Fasting Goal").navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .cancellationAction) { Button("Cancel") { showingGoal = false } }
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Cancel") { showingGoal = false }.accessibilityIdentifier("cancelGoalButton")
+                }
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Done") {
                         do {
@@ -154,6 +153,7 @@ struct TimerView: View {
                             showingGoal = false
                         } catch { errorMessage = error.localizedDescription }
                     }
+                    .accessibilityIdentifier("confirmGoalButton")
                 }
             }
         }

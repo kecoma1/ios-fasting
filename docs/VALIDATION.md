@@ -27,6 +27,16 @@ El recorrido de `FastingDemoCapture.testCaptureDemo` pasó sin fallos en el simu
 
 La grabación real está en `docs/demo/fasting-demo-es.mp4`: 118,6 segundos, H.264, 720 × 1566, 30 fps y 3,1 MB. Se revisaron fotogramas del recorrido en los modos claro y oscuro y se comprobó la decodificación del MP4. La captura puede repetirse con `scripts/record_demo.py`; el esquema normal omite esta prueba.
 
+## Ayunos de varios días
+
+Se amplió el objetivo de 48 horas a un selector de días y horas, desde 1 hora hasta 365 días. Un día equivale a 24 horas transcurridas. El cronómetro muestra los días sobre `HH:MM:SS` y sigue contando después de alcanzar el objetivo. El historial, sus estadísticas y los editores muestran las duraciones completas.
+
+Se mantiene `goalHours` como entero en SwiftData; el esquema y los datos existentes se conservan. Los casos de 49 horas, 3 días, 15 días y el límite del selector se comprobaron en almacenamiento. Un ayuno de 3 días, 4 horas y 5 minutos se reabrió, finalizó y volvió a abrir desde disco conservando su duración.
+
+Las 13 pruebas de almacenamiento pasaron. Los seis flujos de interfaz pasaron, incluidos la reapertura de un ayuno de varios días, los cambios de objetivo desde Ajustes, el cronómetro y el historial, y el selector con el mayor tamaño de texto de accesibilidad. Los dos flujos afectados se repitieron después de identificar los botones de confirmación y reconstruir la rueda nativa cuando cambia el rango de horas; ambas repeticiones pasaron. La compilación Release para dispositivo iOS, sin firma, también pasó.
+
+Las capturas reales con datos ficticios están en `docs/assets/timer-multiday-en.png`, `history-multiday-en.png` y `goal-multiday-en.png`. Los resultados de esta comprobación están en `build/MultiDayFinal.xcresult` (almacenamiento y cinco flujos de interfaz correctos; un fallo de selección del botón en la prueba de objetivos) y `build/MultiDayPickerVerified.xcresult` (los dos flujos afectados, correctos).
+
 ## Pendiente de validar con la cuenta de Apple
 
 La sincronización real entre dispositivos no se ha comprobado. Requiere registrar el nuevo contenedor CloudKit, firmar con el equipo correspondiente, inicializar el esquema y probar con dos dispositivos de la misma cuenta de Apple. Las capacidades, configuración del contenedor privado y comando de inicialización están implementados; los pasos están descritos en el README.

@@ -10,9 +10,8 @@ struct SettingsView: View {
         NavigationStack {
             Form {
                 Section("Your next fast") {
-                    Picker("Default goal", selection: $goalHours) {
-                        ForEach(1...48, id: \.self) { Text("\($0) h").tag($0) }
-                    }
+                    GoalPickerRow(title: "Default goal", goalHours: $goalHours)
+                        .accessibilityIdentifier("defaultGoalRow")
                 }
                 Section {
                     Label("Saved on Your iPhone", systemImage: "iphone")
@@ -30,7 +29,11 @@ struct SettingsView: View {
                 } footer: { Text("Fasting is a temporary name.") }
             }
             .navigationTitle("Settings").navigationBarTitleDisplayMode(.inline)
-            .toolbar { ToolbarItem(placement: .confirmationAction) { Button("Done") { dismiss() } } }
+            .toolbar {
+                ToolbarItem(placement: .confirmationAction) {
+                    Button("Done") { dismiss() }.accessibilityIdentifier("closeSettingsButton")
+                }
+            }
             .task { await checkCloud() }
         }
     }

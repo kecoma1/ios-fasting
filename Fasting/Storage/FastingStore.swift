@@ -9,7 +9,7 @@ enum FastingStoreError: LocalizedError {
         case .alreadyActive: String(localized: "You already have a fast in progress.")
         case .futureStart: String(localized: "The start must be in the past.")
         case .invalidEnd: String(localized: "The end must be after the start and not in the future.")
-        case .invalidGoal: String(localized: "Choose a goal between 1 and 48 hours.")
+        case .invalidGoal: String(localized: "Choose a goal between 1 hour and 365 days.")
         }
     }
 }
@@ -76,7 +76,7 @@ struct FastingStore {
     }
 
     private func validate(start: Date, end: Date?, goal: Int, now: Date) throws {
-        guard (1...48).contains(goal) else { throw FastingStoreError.invalidGoal }
+        guard FastingGoal.allowedHours.contains(goal) else { throw FastingStoreError.invalidGoal }
         guard start <= now else { throw FastingStoreError.futureStart }
         if let end, end < start || end > now { throw FastingStoreError.invalidEnd }
     }

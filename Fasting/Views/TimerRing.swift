@@ -23,6 +23,12 @@ struct TimerRing: View {
                     .font(.title2.weight(.light))
                     .foregroundStyle(Color.accentColor)
                     .accessibilityHidden(true)
+                if DurationText.days(elapsed) > 0 {
+                    Text("\(DurationText.days(elapsed)) d")
+                        .font(.title3.weight(.medium)).monospacedDigit()
+                        .foregroundStyle(Color.accentColor)
+                        .accessibilityHidden(true)
+                }
                 Text(DurationText.clock(elapsed))
                     .font(.system(size: min(clockSize, 66), weight: .light, design: .rounded))
                     .monospacedDigit()

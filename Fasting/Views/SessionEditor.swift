@@ -43,9 +43,8 @@ struct SessionEditor: View {
                         DatePicker("End", selection: $end, in: ...Date.now)
                             .accessibilityIdentifier("editorEndDate")
                     }
-                    Picker("Goal", selection: $goal) {
-                        ForEach(1...48, id: \.self) { Text("\($0) h").tag($0) }
-                    }
+                    GoalPickerRow(title: "Goal", goalHours: $goal)
+                        .accessibilityIdentifier("sessionGoalRow")
                 }
                 if !valid { Text("The end must be after the start and not in the future.").foregroundStyle(.red) }
                 if let errorMessage { Text(errorMessage).foregroundStyle(.red) }

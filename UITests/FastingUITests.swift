@@ -2,12 +2,12 @@ import XCTest
 
 @MainActor
 final class FastingUITests: XCTestCase {
-    private func launch(language: String = "en", extra: [String] = []) -> XCUIApplication {
+    private func launch(language: String = "en", extra: [String] = [], active: Bool = false) -> XCUIApplication {
         continueAfterFailure = false
         let app = XCUIApplication()
         app.launchArguments = ["-UITestStore", UUID().uuidString, "-AppleLanguages", "(\(language))", "-AppleLocale", language == "es" ? "es_ES" : "en_GB"] + extra
         app.launch()
-        XCTAssertTrue(app.buttons["startFastButton"].waitForExistence(timeout: 10))
+        XCTAssertTrue(app.buttons[active ? "finishFastButton" : "startFastButton"].waitForExistence(timeout: 10))
         return app
     }
 
@@ -65,10 +65,78 @@ final class FastingUITests: XCTestCase {
 
     func testLargeTextCanStartAndFinish() {
         let app = launch(extra: ["-UIPreferredContentSizeCategoryName", "UICTContentSizeCategoryAccessibilityXXXL"])
+        app.buttons["goalButton"].tap()
+        XCTAssertTrue(app.pickerWheels.firstMatch.waitForExistence(timeout: 5))
+        app.pickerWheels.element(boundBy: 0).adjust(toPickerWheelValue: "3 d")
+        app.pickerWheels.element(boundBy: 1).adjust(toPickerWheelValue: "0 h")
+        XCTAssertEqual(app.pickerWheels.element(boundBy: 1).value as? String, "0 h")
+        capture("goal-three-days-large-text")
+        app.buttons["confirmGoalButton"].tap()
+        XCTAssertFalse(app.buttons["goalButton"].label.contains(" h"))
         app.swipeUp()
         app.buttons["startFastButton"].tap()
         app.buttons["confirmStartButton"].tap()
         XCTAssertTrue(app.buttons["finishFastButton"].waitForExistence(timeout: 5))
         capture("timer-large-text")
+    }
+
+    func testMultiDayGoalsInSettingsTimerAndHistoryEditor() {
+        let app = launch()
+        app.buttons["settingsButton"].tap()
+        app.buttons["defaultGoalRow"].tap()
+        XCTAssertTrue(app.pickerWheels.firstMatch.waitForExistence(timeout: 5))
+        app.pickerWheels.element(boundBy: 0).adjust(toPickerWheelValue: "3 d")
+        app.pickerWheels.element(boundBy: 1).adjust(toPickerWheelValue: "0 h")
+        XCTAssertEqual(app.pickerWheels.element(boundBy: 1).value as? String, "0 h")
+        capture("goal-three-days-en")
+        app.buttons["confirmGoalButton"].tap()
+        app.buttons["closeSettingsButton"].tap()
+        XCTAssertTrue(app.buttons["goalButton"].label.contains("3 d"))
+        app.buttons["startFastButton"].tap()
+        app.buttons["confirmStartButton"].tap()
+        XCTAssertTrue(app.buttons["finishFastButton"].waitForExistence(timeout: 5))
+        app.buttons["goalButton"].tap()
+        app.pickerWheels.element(boundBy: 0).adjust(toPickerWheelValue: "15 d")
+        app.buttons["confirmGoalButton"].tap()
+        XCTAssertTrue(app.buttons["goalButton"].label.contains("15 d"))
+        app.terminate()
+        app.launch()
+        XCTAssertTrue(app.buttons["finishFastButton"].waitForExistence(timeout: 10))
+        XCTAssertTrue(app.buttons["goalButton"].label.contains("15 d"))
+        app.buttons["finishFastButton"].tap()
+        app.buttons["Finish and Save"].tap()
+        app.tabBars.buttons["History"].tap()
+        let row = app.buttons["historySessionRow"]
+        XCTAssertTrue(row.waitForExistence(timeout: 5))
+        XCTAssertTrue(row.label.contains("15 d"))
+        row.tap()
+        app.buttons["sessionGoalRow"].tap()
+        XCTAssertTrue(app.pickerWheels.firstMatch.waitForExistence(timeout: 5))
+        app.pickerWheels.element(boundBy: 0).adjust(toPickerWheelValue: "3 d")
+        app.pickerWheels.element(boundBy: 1).adjust(toPickerWheelValue: "1 h")
+        XCTAssertEqual(app.pickerWheels.element(boundBy: 1).value as? String, "1 h")
+        app.buttons["confirmGoalButton"].tap()
+        app.buttons["saveSessionButton"].tap()
+        XCTAssertTrue(row.waitForExistence(timeout: 5))
+        XCTAssertTrue(row.label.contains("3 d 1 h"))
+    }
+
+    func testMultiDayTimerSurvivesRelaunchAndSavesItsFullDuration() {
+        let app = launch(extra: ["-DemoData", "-DemoMultiDay"], active: true)
+        let elapsed = app.staticTexts["elapsedTime"]
+        XCTAssertTrue((elapsed.value as? String ?? "").contains("3 days"))
+        XCTAssertTrue(app.buttons["goalButton"].label.contains("3 d"))
+        capture("timer-multiday-en")
+        app.terminate()
+        app.launch()
+        XCTAssertTrue(app.buttons["finishFastButton"].waitForExistence(timeout: 10))
+        XCTAssertTrue((elapsed.value as? String ?? "").contains("3 days"))
+        app.buttons["finishFastButton"].tap()
+        app.buttons["Finish and Save"].tap()
+        app.tabBars.buttons["History"].tap()
+        let row = app.buttons.matching(identifier: "historySessionRow")
+            .matching(NSPredicate(format: "label CONTAINS %@", "3 d 4 h")).firstMatch
+        XCTAssertTrue(row.waitForExistence(timeout: 5))
+        capture("history-multiday-en")
     }
 }

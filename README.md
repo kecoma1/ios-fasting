@@ -31,7 +31,7 @@
 ## Features
 
 - **A timer that keeps going.** Elapsed time is calculated from the saved start date. Close the app, lock your phone, or restart it, then pick up where you left off.
-- **Your own goal.** Choose between 1 and 48 hours and follow your progress in the central ring. You can change the goal during a fast.
+- **Hours or days.** Choose a goal from 1 hour to 365 days, including mixed durations such as 3 days and 4 hours. The timer shows days separately from `HH:MM:SS` and keeps counting after the goal; it never ends a fast automatically.
 - **Start when you actually started.** Adjust the start time if you have already been fasting for a while.
 - **Your history at a glance.** Fasts grouped by month, each session's duration, total time, average duration, and longest fast.
 - **Make corrections.** Add past fasts, edit their times and goals, or delete them with confirmation.
@@ -66,9 +66,11 @@
 
 [Settings and privacy information](docs/assets/fasting-settings.png) are one tap away from the timer.
 
+Multi-day examples: [a timer after three days](docs/assets/timer-multiday-en.png), [the full duration in History](docs/assets/history-multiday-en.png), and [choosing a three-day goal](docs/assets/goal-multiday-en.png). A day represents 24 elapsed hours.
+
 ## Getting started
 
-1. **Choose your goal.** Tap the button below the timer and select a duration.
+1. **Choose your goal.** Tap the button below the timer and select days and hours. For a three-day goal, choose **3 days, 0 hours**.
 2. **Start a fast.** Confirm the start time, or adjust it if you already began.
 3. **Come back whenever you like.** The timer remembers the start date even when you close the app.
 4. **Finish and save.** Your fast moves to History, where you can review and edit it.
@@ -157,8 +159,8 @@ The integration is implemented; **real synchronization between devices still nee
 
 The **Fasting** scheme includes:
 
-- **`FastingStoreTests`**, with 11 tests covering persistence, date and goal validation, recovery from failed saves, statistics, and timer continuity.
-- **`FastingUITests`**, covering starting and finishing fasts, history editing, Spanish, and accessibility text sizes.
+- **`FastingStoreTests`**, with 13 tests covering persistence, date and goal validation, recovery from failed saves, statistics, timer continuity, and fasts lasting several days.
+- **`FastingUITests`**, covering starting and finishing fasts, history editing, Spanish, accessibility text sizes, choosing goals in days, and reopening and saving a multi-day fast.
 
 ```sh
 xcodebuild test -project iOSFasting.xcodeproj -scheme Fasting \
