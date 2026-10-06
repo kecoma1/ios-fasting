@@ -199,7 +199,7 @@ The cover follows the three-iPhone composition in `ios-clipboard`: aligned side 
 python3 scripts/create_readme_assets.py
 ```
 
-The recording exports named screenshots and a timing manifest, so the gallery and GIF follow the actual walkthrough. No Python packages need to be installed.
+The recording exports named screenshots and a timing manifest. Its optional `clips` values hold visually reviewed video offsets when simulator recording timing differs from capture timing. No Python packages need to be installed.
 
 ## Contributing
 

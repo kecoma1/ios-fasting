@@ -21,7 +21,8 @@ for filename in ["fasting-timer-en.png", "fasting-history-en.png", "fasting-edit
         raise FileNotFoundError(f"Missing {filename}; first run scripts/record_demo.py --language en.")
 
 # A brief excerpt of the same real walkthrough, with cuts and 1.25x playback.
-segments = [(metadata["frames"][name], min(metadata["frames"][name] + 3, metadata["duration"]))
+clip_times = metadata.get("clips", metadata["frames"])
+segments = [(clip_times[name], min(clip_times[name] + 3, metadata["duration"]))
             for name in ["timer", "guide", "history", "editor", "settings", "multiday", "ketones", "dark"]]
 count = len(segments)
 filters = [f"[0:v]split={count}" + "".join(f"[v{i}]" for i in range(count))]

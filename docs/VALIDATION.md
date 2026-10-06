@@ -53,7 +53,7 @@ Badges and explanations were visually reviewed in both languages and with large 
 
 `FastingDemoCapture.testCaptureEnglishDemo` passed on the dedicated simulator in `build/demo-20261006-090246/Capture.xcresult`. The walkthrough uses separate example databases for the ordinary and multi-day fasts and records the current app, including milestone explanations, History, editing, Settings, three-day goals and dark mode.
 
-The new video at `docs/demo/fasting-demo-en.mp4` is 151.4 seconds, H.264, 720 × 1566, 30 fps and 4.9 MB. Its complete decoding passed. The English GIF at `docs/assets/fasting-demo-en.gif` is 18.88 seconds, 360 × 784 and 0.85 MB, with cuts and 1.25× playback.
+The new video at `docs/demo/fasting-demo-en.mp4` is 151.4 seconds, H.264, 720 × 1566, 30 fps and 4.9 MB. Its complete decoding passed. The English GIF at `docs/assets/fasting-demo-en.gif` is 18.88 seconds, 360 × 784 and 0.73 MB, with cuts and 1.25× playback.
 
 The README's text, screenshots, cover, GIF and linked walkthrough are in English. Main assets use explicit `-en` filenames. The gallery is exported from named XCTest attachments, and GIF cuts use the recording's timing manifest. Each screenshot was captured at the normal text size with the simulator's status bar set to 9:41; the override was cleared afterward.
 
