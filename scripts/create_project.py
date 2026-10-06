@@ -3,6 +3,7 @@
 from pathlib import Path
 import hashlib
 import json
+import xml.etree.ElementTree as ET
 
 ROOT = Path(__file__).resolve().parents[1]
 PROJECT = "iOSFasting.xcodeproj"
@@ -37,7 +38,7 @@ def file(path, kind):
 
 app_sources = sorted(str(p.relative_to(ROOT)) for p in (ROOT / "Fasting").rglob("*.swift"))
 unit_sources = ["Tests/FastingStoreTests.swift"] + [p for p in app_sources if "/Models/" in p or p.endswith("FastingStore.swift")]
-ui_sources = ["UITests/FastingUITests.swift"]
+ui_sources = sorted(str(p.relative_to(ROOT)) for p in (ROOT / "UITests").rglob("*.swift"))
 all_sources = sorted(set(app_sources + unit_sources + ui_sources))
 refs = {p: file(p, "sourcecode.swift") for p in all_sources}
 resources = {
@@ -116,4 +117,10 @@ scheme = f'''<?xml version="1.0" encoding="UTF-8"?>
 scheme_path = project_path / "xcshareddata/xcschemes/Fasting.xcscheme"
 scheme_path.parent.mkdir(parents=True, exist_ok=True)
 scheme_path.write_text(scheme)
+demo = ET.fromstring(scheme)
+test_action = demo.find("TestAction")
+test_action.set("shouldUseLaunchSchemeArgsEnv", "NO")
+variables = ET.SubElement(test_action, "EnvironmentVariables")
+ET.SubElement(variables, "EnvironmentVariable", key="FASTING_RECORD_DEMO", value="1", isEnabled="YES")
+ET.ElementTree(demo).write(scheme_path.with_name("FastingDemo.xcscheme"), encoding="UTF-8", xml_declaration=True)
 print(f"Generated {PROJECT} with app, storage tests, and UI tests.")

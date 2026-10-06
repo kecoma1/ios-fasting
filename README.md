@@ -18,6 +18,8 @@ Sin Firebase, servidor, registro, anuncios, analítica ni paquetes de terceros.
 
 ## Vista previa
 
+Vídeo real del simulador, en español y con datos de ejemplo: [ver o descargar la demo](docs/demo/fasting-demo-es.mp4) (1 min 59 s, 3,1 MB). Muestra el cronómetro, el objetivo, la finalización de un ayuno, el historial, los editores, los ajustes y el modo oscuro. También está disponible la [captura inicial con el ayuno en curso](docs/demo/poster.png).
+
 Capturas reales del simulador de iPhone 17 Pro. El historial de esta captura contiene un ayuno breve creado durante las pruebas.
 
 <p align="center">
@@ -27,6 +29,14 @@ Capturas reales del simulador de iPhone 17 Pro. El historial de esta captura con
 </p>
 
 También disponible en [modo oscuro](docs/assets/timer-dark-es.png).
+
+Para volver a grabar el recorrido, usa un simulador dedicado ya arrancado y FFmpeg instalado:
+
+```sh
+python3 scripts/record_demo.py --device <UDID-del-simulador>
+```
+
+El esquema **FastingDemo** ejecuta el recorrido con pausas para la grabación. Crea una base independiente con ayunos ficticios, disponible solo en Debug; no cambia la base normal ni usa iCloud. El esquema **Fasting** omite esta prueba de grabación. El MP4 se guarda en `docs/demo/` y los resultados de XCTest y la captura original en `build/`.
 
 ## Ejecutar
 

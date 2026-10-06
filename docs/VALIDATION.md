@@ -21,6 +21,12 @@ En las pruebas de interfaz se corrigieron la zona de pulsación de la fila del h
 
 Los resultados de XCTest se generan en `build/` y no se suben al repositorio. Las capturas reales seleccionadas están en `docs/assets/`.
 
+## Vídeo de revisión
+
+El recorrido de `FastingDemoCapture.testCaptureDemo` pasó sin fallos en el simulador dedicado. Usa una base independiente con tres ayunos anteriores y uno en curso; los datos de ejemplo solo se crean en Debug con los argumentos de grabación y no usan iCloud.
+
+La grabación real está en `docs/demo/fasting-demo-es.mp4`: 118,6 segundos, H.264, 720 × 1566, 30 fps y 3,1 MB. Se revisaron fotogramas del recorrido en los modos claro y oscuro y se comprobó la decodificación del MP4. La captura puede repetirse con `scripts/record_demo.py`; el esquema normal omite esta prueba.
+
 ## Pendiente de validar con la cuenta de Apple
 
 La sincronización real entre dispositivos no se ha comprobado. Requiere registrar el nuevo contenedor CloudKit, firmar con el equipo correspondiente, inicializar el esquema y probar con dos dispositivos de la misma cuenta de Apple. Las capacidades, configuración del contenedor privado y comando de inicialización están implementados; los pasos están descritos en el README.

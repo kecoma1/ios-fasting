@@ -43,6 +43,23 @@ enum Persistence {
         )
         let container = try ModelContainer(for: schema, configurations: [configuration])
         container.mainContext.autosaveEnabled = false
+        #if DEBUG
+        if !cloud, url.lastPathComponent.hasPrefix("test-"), arguments.contains("-DemoData"),
+           try container.mainContext.fetchCount(FetchDescriptor<FastingSession>()) == 0 {
+            let now = Date.now
+            for (index, hours) in [16, 14, 18].enumerated() {
+                let end = Calendar.current.date(byAdding: .day, value: -(index + 2), to: now) ?? now
+                container.mainContext.insert(FastingSession(
+                    startedAt: end.addingTimeInterval(-TimeInterval(hours) * 3_600),
+                    endedAt: end, goalHours: 16
+                ))
+            }
+            container.mainContext.insert(FastingSession(
+                startedAt: now.addingTimeInterval(-(12 * 3_600 + 43 * 60)), goalHours: 16
+            ))
+            try container.mainContext.save()
+        }
+        #endif
         return container
     }
 

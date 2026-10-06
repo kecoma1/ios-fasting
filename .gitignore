@@ -5,3 +5,5 @@ xcuserdata/
 *.xcuserstate
 *.xcresult
 *.xcscmblueprint
+__pycache__/
+*.pyc
