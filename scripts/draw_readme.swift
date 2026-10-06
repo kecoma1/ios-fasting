@@ -3,6 +3,7 @@ import ImageIO
 import UniformTypeIdentifiers
 
 // Native composition of actual screenshots; no generated or redrawn app UI.
+// Three aligned iPhones match ios-clipboard's README composition.
 let assets = URL(fileURLWithPath: "docs/assets", isDirectory: true)
 
 func load(_ path: String) -> NSImage {
@@ -62,16 +63,22 @@ func phone(_ filename: String, x: CGFloat, top: CGFloat, width: CGFloat) {
     let screen = frame.insetBy(dx: inset, dy: inset)
     NSBezierPath(roundedRect: screen, xRadius: width * 0.135, yRadius: width * 0.135).addClip()
     image.draw(in: screen)
+    // XCTest screenshots omit the display cutout; draw it as part of the device hardware.
+    let island = NSRect(x: screen.midX - screen.width * 0.15,
+                        y: screen.maxY - screen.width * 0.116,
+                        width: screen.width * 0.30, height: screen.width * 0.083)
+    NSColor.black.setFill()
+    NSBezierPath(roundedRect: island, xRadius: island.height / 2, yRadius: island.height / 2).fill()
     NSGraphicsContext.restoreGraphicsState()
 }
 
-render(width: 1800, height: 1125, to: assets.appendingPathComponent("fasting-hero.png")) {
+render(width: 1800, height: 1125, to: assets.appendingPathComponent("fasting-hero-en.png")) {
     NSGradient(
         starting: NSColor(red: 0.62, green: 0.90, blue: 0.80, alpha: 1),
         ending: NSColor(red: 0.10, green: 0.48, blue: 0.40, alpha: 1)
     )!.draw(in: NSRect(x: 0, y: 0, width: 1800, height: canvasHeight), angle: -35)
-    phone("fasting-history.png", x: 202, top: 171, width: 440)
-    phone("fasting-dark.png", x: 1158, top: 171, width: 440)
-    phone("fasting-timer.png", x: 652, top: 57, width: 496)
+    phone("fasting-history-en.png", x: 202, top: 159, width: 436)
+    phone("fasting-dark-en.png", x: 1162, top: 159, width: 436)
+    phone("fasting-timer-en.png", x: 656, top: 55, width: 488)
 }
 print("Rendered the Fasting icon and three-device README cover.")

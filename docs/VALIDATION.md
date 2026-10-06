@@ -1,54 +1,66 @@
-# Validación inicial
+# Validation log
 
-Fecha: 6 de octubre de 2026. Xcode 26.3, SDK iOS 26.2 y simulador dedicado de iPhone 17 Pro con iOS 26.3.
+Date: 6 October 2026. Xcode 26.3, iOS 26.2 SDK and a dedicated iPhone 17 Pro simulator running iOS 26.3.
 
-| Comprobación | Resultado |
+## Initial app
+
+| Check | Result |
 | --- | --- |
-| Compilación Debug para simulador | Correcta |
-| Compilación Release para dispositivo iOS, sin firma | Correcta |
-| 11 pruebas de almacenamiento | Correctas |
-| Iniciar, cerrar, reabrir, finalizar y consultar el historial | Correcto |
-| Añadir, abrir, guardar y eliminar un ayuno anterior | Correcto |
-| Interfaz y ajustes en español | Correctos |
-| Revisión visual de los modos claro y oscuro | Correcta |
-| Iniciar con el tamaño de texto de accesibilidad más grande | Correcto |
-| Todos los textos extraídos por el compilador tienen traducción | Correcto |
-| Icono de 1024 × 1024, opaco | Correcto |
+| Debug build for the simulator | Passed |
+| Unsigned Release build for an iOS device | Passed |
+| Original 11 storage tests | Passed |
+| Start, close, reopen, finish and view history | Passed |
+| Add, open, save and delete a past fast | Passed |
+| Spanish interface and settings | Passed |
+| Visual review in light and dark mode | Passed |
+| Start with the largest accessibility text size | Passed |
+| Compiler-extracted strings have translations | Passed |
+| Opaque 1024 × 1024 app icon | Passed |
 
-Las pruebas de almacenamiento verifican persistencia tras reabrir la base, prevención de sesiones activas duplicadas, duración final inmutable, validación de fechas y objetivos, conservación del registro ante una edición inválida, edición y eliminación persistentes, recuperación de los valores visibles tras un guardado fallido, estadísticas sin sesiones activas, reloj de más de 24 horas y valores por defecto compatibles con el esquema de CloudKit.
+Storage checks covered persistence after reopening the database, duplicate active-session prevention, frozen completed durations, date and goal validation, preserving records after invalid edits, persistent edits and deletion, restoring observed values after failed saves, statistics excluding active sessions, durations beyond 24 hours, and CloudKit-compatible defaults.
 
-En las pruebas de interfaz se corrigieron la zona de pulsación de la fila del historial y la altura de la hoja de inicio con texto de accesibilidad. Los flujos afectados se repitieron y pasaron. Las pruebas de almacenamiento se repitieron completas tras corregir la recuperación de los valores observados cuando el disco rechaza un guardado.
+UI checks led to corrections to the History row's tap area and the start sheet's height with accessibility text. Affected flows were rerun and passed. The full storage suite was rerun after correcting recovery of observed values when a save is rejected.
 
-Los resultados de XCTest se generan en `build/` y no se suben al repositorio. Las capturas reales seleccionadas están en `docs/assets/`.
+XCTest results are generated in `build/` and are not committed. Selected real screenshots are in `docs/assets/`.
 
-## Vídeo de revisión
+## Original Spanish recording
 
-El recorrido de `FastingDemoCapture.testCaptureDemo` pasó sin fallos en el simulador dedicado. Usa una base independiente con tres ayunos anteriores y uno en curso; los datos de ejemplo solo se crean en Debug con los argumentos de grabación y no usan iCloud.
+`FastingDemoCapture.testCaptureDemo` passed on the dedicated simulator. It used an independent database with three past fasts and an active fast. Sample data is created only in Debug with recording arguments and does not use iCloud.
 
-La grabación real está en `docs/demo/fasting-demo-es.mp4`: 118,6 segundos, H.264, 720 × 1566, 30 fps y 3,1 MB. Se revisaron fotogramas del recorrido en los modos claro y oscuro y se comprobó la decodificación del MP4. La captura puede repetirse con `scripts/record_demo.py`; el esquema normal omite esta prueba.
+The original recording is preserved at `docs/demo/fasting-demo-es.mp4`: 118.6 seconds, H.264, 720 × 1566, 30 fps and 3.1 MB. Light and dark frames were reviewed, and the MP4 was decoded successfully. The current recording script defaults to English; `--language es` selects the Spanish walkthrough.
 
-## Ayunos de varios días
+## Multi-day fasts
 
-Se amplió el objetivo de 48 horas a un selector de días y horas, desde 1 hora hasta 365 días. Un día equivale a 24 horas transcurridas. El cronómetro muestra los días sobre `HH:MM:SS` y sigue contando después de alcanzar el objetivo. El historial, sus estadísticas y los editores muestran las duraciones completas.
+The original 48-hour goal limit was replaced by a days-and-hours editor, from 1 hour to 365 days. A day is 24 elapsed hours. The timer shows days above `HH:MM:SS` and keeps counting after reaching the goal. History, statistics and editors show complete durations.
 
-Se mantiene `goalHours` como entero en SwiftData; el esquema y los datos existentes se conservan. Los casos de 49 horas, 3 días, 15 días y el límite del selector se comprobaron en almacenamiento. Un ayuno de 3 días, 4 horas y 5 minutos se reabrió, finalizó y volvió a abrir desde disco conservando su duración.
+`goalHours` remains an integer in SwiftData; the schema and existing records are preserved. Storage checks covered 49 hours, 3 days, 15 days and the editor limit. A fast lasting 3 days, 4 hours and 5 minutes was reopened, completed and reopened again from disk without losing its duration.
 
-Las 13 pruebas de almacenamiento pasaron. Los seis flujos de interfaz pasaron, incluidos la reapertura de un ayuno de varios días, los cambios de objetivo desde Ajustes, el cronómetro y el historial, y el selector con el mayor tamaño de texto de accesibilidad. Los dos flujos afectados se repitieron después de identificar los botones de confirmación y reconstruir la rueda nativa cuando cambia el rango de horas; ambas repeticiones pasaron. La compilación Release para dispositivo iOS, sin firma, también pasó.
+All 13 storage tests and six UI flows passed. These covered reopening a multi-day fast, changing goals in Settings, the timer and History, and the goal editor at the largest accessibility text size. The two affected flows were rerun after adding stable confirmation-button identifiers and rebuilding the native hours wheel when its allowed range changes. Both reruns passed. The unsigned Release build for an iOS device also passed.
 
-Las capturas reales con datos ficticios están en `docs/assets/timer-multiday-en.png`, `history-multiday-en.png` y `goal-multiday-en.png`. Los resultados de esta comprobación están en `build/MultiDayFinal.xcresult` (almacenamiento y cinco flujos de interfaz correctos; un fallo de selección del botón en la prueba de objetivos) y `build/MultiDayPickerVerified.xcresult` (los dos flujos afectados, correctos).
+Results are in `build/MultiDayFinal.xcresult` (storage and five UI flows passed; one goal-test button-selection failure) and `build/MultiDayPickerVerified.xcresult` (both affected flows passed). Selected English examples include `docs/assets/timer-multiday-en.png`, `history-multiday-en.png` and `goal-multiday-en.png`.
 
-## Insignias de etapas
+## Milestone badges
 
-Se añadieron seis insignias acumulativas debajo del cronómetro: referencias educativas a las 8, 12 y 16 horas y marcas de duración a las 24, 48 y 72 horas. Cada insignia abre una explicación y las fuentes están disponibles en la guía. Los tiempos metabólicos se presentan como aproximados; el reloj no confirma cetosis ni mide estados fisiológicos.
+Six cumulative badges appear below the timer: educational references at 8, 12 and 16 hours, and duration checkpoints at 24, 48 and 72 hours. Each badge opens an explanation, with sources available in the guide. Metabolic timings are approximate; the timer does not confirm ketosis or measure physiological states.
 
-Las insignias se calculan a partir del inicio guardado, sin añadir campos al esquema de SwiftData. Se comprobaron los límites un segundo antes y en el instante exacto de cada hito, la acumulación en ayunos de varios días, la reapertura del almacenamiento, una corrección del inicio, la duración final inmutable y el reinicio de las insignias para un nuevo ayuno.
+Badges derive from the saved start date without adding SwiftData fields. Checks covered one second before and exactly at each boundary, accumulation across multiple days, reopening storage, editing the start time, frozen completed durations and resetting badges for a new fast.
 
-Las 16 pruebas de almacenamiento y cálculo y los cuatro recorridos relevantes de interfaz pasaron en `build/MilestonesVerified.xcresult`: insignias acumuladas y reapertura, terminar e iniciar otro ayuno, los seis hitos y la explicación de cetonas en español, texto de accesibilidad de tamaño máximo, y el recorrido de inicio, reapertura, finalización e historial. La compilación Release para iPhone sin firma pasó y las 102 cadenas extraídas por el compilador tienen traducción al inglés y español.
+All 16 storage/calculation tests and four relevant UI flows passed in `build/MilestonesVerified.xcresult`: accumulated badges and relaunch, finishing and starting another fast, all six checkpoints with the Spanish ketone explanation, the largest accessibility text size, and the start/relaunch/finish/History flow. The unsigned iPhone Release build passed, and all 102 compiler-extracted strings have English and Spanish translations.
 
-Se revisaron las capturas de insignias y explicaciones en ambos idiomas y con texto grande. Las tres capturas seleccionadas están en `docs/assets/milestones-timer-en.png`, `milestones-multiday-es.png` y `milestones-ketones-es.png`.
+Badges and explanations were visually reviewed in both languages and with large text. Original selected screenshots remain in `docs/assets/milestones-timer-en.png`, `milestones-multiday-es.png` and `milestones-ketones-es.png`.
 
-## Pendiente de validar con la cuenta de Apple
+## English README and three-iPhone cover
 
-La sincronización real entre dispositivos no se ha comprobado. Requiere registrar el nuevo contenedor CloudKit, firmar con el equipo correspondiente, inicializar el esquema y probar con dos dispositivos de la misma cuenta de Apple. Las capacidades, configuración del contenedor privado y comando de inicialización están implementados; los pasos están descritos en el README.
+`FastingDemoCapture.testCaptureEnglishDemo` passed on the dedicated simulator in `build/demo-20261006-090246/Capture.xcresult`. The walkthrough uses separate example databases for the ordinary and multi-day fasts and records the current app, including milestone explanations, History, editing, Settings, three-day goals and dark mode.
 
-La ejecución en iOS 17–18 y en iPad no se ha probado durante esta validación. El proyecto declara compatibilidad con iOS 17 y las APIs de Liquid Glass tienen alternativas protegidas por comprobaciones de disponibilidad.
+The new video at `docs/demo/fasting-demo-en.mp4` is 151.4 seconds, H.264, 720 × 1566, 30 fps and 4.9 MB. Its complete decoding passed. The English GIF at `docs/assets/fasting-demo-en.gif` is 18.88 seconds, 360 × 784 and 0.85 MB, with cuts and 1.25× playback.
+
+The README's text, screenshots, cover, GIF and linked walkthrough are in English. Main assets use explicit `-en` filenames. The gallery is exported from named XCTest attachments, and GIF cuts use the recording's timing manifest. Each screenshot was captured at the normal text size with the simulator's status bar set to 9:41; the override was cleared afterward.
+
+`docs/assets/fasting-hero-en.png` follows the `ios-clipboard` cover: three aligned iPhones, a larger center device and a mint/emerald gradient. The screens are real English captures of History, the active timer with badges and a three-day fast in dark mode. AppKit draws the device frames and display cutouts without changing the app interface. The cover and English gallery were visually reviewed, and local README references were checked.
+
+## Still requires Apple-account validation
+
+Real synchronization between devices has not been tested. It requires a registered CloudKit container, signing with the appropriate team, schema initialization and two devices using the same Apple Account. Capabilities, the private-container configuration and initialization command are implemented; the README describes the setup.
+
+Execution on iOS 17–18 and iPad has not been tested in these validation runs. The project declares iOS 17 support, with availability-guarded alternatives to Liquid Glass APIs.

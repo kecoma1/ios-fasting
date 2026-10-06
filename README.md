@@ -21,11 +21,11 @@
 </p>
 
 <p align="center">
-  <img src="docs/assets/fasting-hero.png" width="900" alt="Three iPhones showing the real Fasting app: history with statistics, a fast in progress at 12 hours and 43 minutes, and the timer in dark mode">
+  <img src="docs/assets/fasting-hero-en.png" width="900" alt="Three aligned iPhones showing Fasting in English: history with statistics, a 12-hour fast with milestone badges, and a three-day fast in dark mode">
 </p>
 
 <p align="center">
-  <sub>Fasting is the working name. The images show the real app with sample fasts.</sub>
+  <sub>The real app, shown in English with sample fasts. Fasting is the working name.</sub>
 </p>
 
 ## Features
@@ -42,45 +42,32 @@
 ## See it in action
 
 <p align="center">
-  <img src="docs/assets/fasting-demo.gif" width="300" alt="Fasting demo: a running timer, goal adjustment, finishing a fast, history, editing, settings, and dark mode">
+  <img src="docs/assets/fasting-demo-en.gif" width="300" alt="English Fasting demo: a running timer, milestone explanations, history, editing, settings, a three-day fast, and dark mode">
 </p>
 
 <p align="center">
-  <a href="docs/demo/fasting-demo-es.mp4"><strong>Watch the full video · 1 min 59 s</strong></a><br>
-  <sub>Real simulator recording in Spanish. The GIF is an excerpt with cuts and 1.25× playback.</sub>
+  <a href="docs/demo/fasting-demo-en.mp4"><strong>Watch the full video in English · 2 min 31 s</strong></a><br>
+  <sub>Real simulator recording in English. The GIF is an excerpt with cuts and 1.25× playback.</sub>
 </p>
 
 <table>
   <tr>
-    <td align="center" width="25%"><img src="docs/assets/fasting-timer.png" alt="A fast in progress at 12 hours and 43 minutes, with a 16-hour goal and progress ring"></td>
-    <td align="center" width="25%"><img src="docs/assets/fasting-history.png" alt="History with four fasts, total duration, average duration, and longest session"></td>
-    <td align="center" width="25%"><img src="docs/assets/fasting-editor.png" alt="Editor for a saved fast, with adjustable start and end dates and goal"></td>
-    <td align="center" width="25%"><img src="docs/assets/fasting-dark.png" alt="The timer and Liquid Glass controls in dark mode"></td>
+    <td align="center" width="25%"><img src="docs/assets/fasting-timer-en.png" alt="A fast in progress at 12 hours and 43 minutes, with a progress ring and two milestone badges"></td>
+    <td align="center" width="25%"><img src="docs/assets/fasting-history-en.png" alt="History with four fasts, total duration, average duration, and longest session"></td>
+    <td align="center" width="25%"><img src="docs/assets/milestones-ketones-en.png" alt="The English milestone guide explains the approximate transition to ketone production"></td>
+    <td align="center" width="25%"><img src="docs/assets/fasting-dark-en.png" alt="A three-day timer with all six milestone badges and Liquid Glass controls in dark mode"></td>
   </tr>
   <tr>
     <td align="center"><sub>Your time, front and center</sub></td>
     <td align="center"><sub>All your fasts</sub></td>
-    <td align="center"><sub>Times you can adjust</sub></td>
+    <td align="center"><sub>Learn about each milestone</sub></td>
     <td align="center"><sub>Dark mode, too</sub></td>
   </tr>
 </table>
 
-[Settings and privacy information](docs/assets/fasting-settings.png) are one tap away from the timer.
+[Settings and privacy information](docs/assets/fasting-settings-en.png) are one tap away from the timer. The [session editor](docs/assets/fasting-editor-en.png) lets you adjust saved times and goals.
 
-Multi-day examples: [a timer after three days](docs/assets/timer-multiday-en.png), [the full duration in History](docs/assets/history-multiday-en.png), and [choosing a three-day goal](docs/assets/goal-multiday-en.png). A day represents 24 elapsed hours.
-
-<table>
-  <tr>
-    <td align="center" width="33%"><img src="docs/assets/milestones-timer-en.png" alt="Two accumulated milestone badges below the timer after 12 hours: energy reserves and fat as fuel"></td>
-    <td align="center" width="33%"><img src="docs/assets/milestones-multiday-es.png" alt="A three-day fast with all six milestone badges, shown in Spanish"></td>
-    <td align="center" width="33%"><img src="docs/assets/milestones-ketones-es.png" alt="Tapping the ketone badge opens an explanation of approximate timing and individual variation"></td>
-  </tr>
-  <tr>
-    <td align="center"><sub>Badges accumulate below the timer</sub></td>
-    <td align="center"><sub>Earlier milestones stay with you</sub></td>
-    <td align="center"><sub>Tap a badge to learn more</sub></td>
-  </tr>
-</table>
+Multi-day examples: [a timer after three days](docs/assets/milestones-multiday-en.png), [the full duration in History](docs/assets/history-multiday-en.png), and [choosing a three-day goal](docs/assets/goal-multiday-en.png). A day represents 24 elapsed hours.
 
 ## Getting started
 
@@ -201,18 +188,18 @@ swift scripts/draw_icon.swift
 To record the video, use an already booted dedicated simulator with **FFmpeg** installed:
 
 ```sh
-python3 scripts/record_demo.py --device <simulator-UDID>
+python3 scripts/record_demo.py --device <simulator-UDID> --language en
 ```
 
-The **FastingDemo** scheme runs the walkthrough with pauses and an independent database of sample fasts, available only in Debug. The normal scheme skips this recording test.
+The **FastingDemo** scheme runs the walkthrough with pauses and independent databases of sample fasts, available only in Debug. English is the recording script's default. The normal scheme skips these recording walkthroughs.
 
-The cover combines real screenshots in iPhone frames drawn with AppKit. The gallery and GIF are extracted from the saved video with FFmpeg:
+The cover follows the three-iPhone composition in `ios-clipboard`: aligned side devices and a larger phone in the center, with a mint and emerald background. Every screen is a real English screenshot. AppKit draws the frames, XCTest captures the gallery, and FFmpeg creates the GIF from the saved video:
 
 ```sh
 python3 scripts/create_readme_assets.py
 ```
 
-If you replace the video with another recording, adjust the frame times and cuts in that script. No Python packages need to be installed.
+The recording exports named screenshots and a timing manifest, so the gallery and GIF follow the actual walkthrough. No Python packages need to be installed.
 
 ## Contributing
 

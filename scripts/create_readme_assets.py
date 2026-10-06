@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-"""Build the README gallery, short GIF and device composition from the recorded app."""
+"""Build the English README GIF and device composition from the recorded app."""
 from pathlib import Path
-import shutil
+import json
 import subprocess
 
 ROOT = Path(__file__).resolve().parents[1]
 ASSETS = ROOT / "docs" / "assets"
-VIDEO = ROOT / "docs" / "demo" / "fasting-demo-es.mp4"
+VIDEO = ROOT / "docs" / "demo" / "fasting-demo-en.mp4"
 ASSETS.mkdir(parents=True, exist_ok=True)
 
 
@@ -14,13 +14,15 @@ def run(*command):
     subprocess.run(command, cwd=ROOT, check=True)
 
 
-shutil.copyfile(ROOT / "docs" / "demo" / "poster.png", ASSETS / "fasting-timer.png")
-for name, seconds in [("history", 39), ("editor", 48), ("settings", 90), ("dark", 104)]:
-    run("ffmpeg", "-y", "-loglevel", "error", "-ss", str(seconds), "-i", str(VIDEO),
-        "-frames:v", "1", str(ASSETS / f"fasting-{name}.png"))
+metadata = json.loads((ROOT / "docs" / "demo" / "fasting-demo-en.json").read_text())
+assert metadata["language"] == "en"
+for filename in ["fasting-timer-en.png", "fasting-history-en.png", "fasting-editor-en.png", "fasting-settings-en.png", "fasting-dark-en.png"]:
+    if not (ASSETS / filename).exists():
+        raise FileNotFoundError(f"Missing {filename}; first run scripts/record_demo.py --language en.")
 
 # A brief excerpt of the same real walkthrough, with cuts and 1.25x playback.
-segments = [(0, 3), (11, 16), (21, 25), (36, 40), (47, 50), (89, 93), (102, 107)]
+segments = [(metadata["frames"][name], min(metadata["frames"][name] + 3, metadata["duration"]))
+            for name in ["timer", "guide", "history", "editor", "settings", "multiday", "ketones", "dark"]]
 count = len(segments)
 filters = [f"[0:v]split={count}" + "".join(f"[v{i}]" for i in range(count))]
 for i, (start, end) in enumerate(segments):
@@ -32,6 +34,6 @@ filters.extend([
     "[frames][palette]paletteuse=dither=bayer:bayer_scale=3[gif]"
 ])
 run("ffmpeg", "-y", "-loglevel", "error", "-i", str(VIDEO), "-filter_complex", ";".join(filters),
-    "-map", "[gif]", "-loop", "0", str(ASSETS / "fasting-demo.gif"))
+    "-map", "[gif]", "-loop", "0", str(ASSETS / "fasting-demo-en.gif"))
 run("swift", "scripts/draw_readme.swift")
-print("Created README assets from the real Spanish simulator recording.")
+print("Created README assets from the real English simulator recording.")
