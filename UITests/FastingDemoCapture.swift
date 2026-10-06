@@ -12,6 +12,35 @@ final class FastingDemoCapture: XCTestCase {
         try captureDemo(language: "en")
     }
 
+    func testCaptureThreeTabScreens() throws {
+        guard ProcessInfo.processInfo.environment["FASTING_RECORD_DEMO"] == "1" else {
+            throw XCTSkip("Use scripts/capture_readme.py to refresh the three-tab gallery.")
+        }
+        continueAfterFailure = false
+        let app = XCUIApplication()
+        app.launchArguments = arguments(language: "en") + ["-DemoMealData"]
+        app.launch()
+        XCTAssertTrue(app.buttons["finishFastButton"].waitForExistence(timeout: 15))
+        XCTAssertEqual(app.tabBars.buttons.count, 3)
+        frame("timer", language: "en")
+        app.tabBars.buttons["History"].tap()
+        XCTAssertTrue(app.buttons["historySessionRow"].firstMatch.waitForExistence(timeout: 5))
+        frame("history", language: "en")
+        app.tabBars.buttons["Last Meal"].tap()
+        XCTAssertTrue(app.staticTexts["lastMealDate"].waitForExistence(timeout: 5))
+        frame("meal", language: "en")
+        signal("DARK")
+        pause(4)
+        frame("meal-dark", language: "en")
+
+        app.terminate()
+        app.launchArguments = arguments(language: "en", multiDay: true)
+        app.launch()
+        XCTAssertTrue(app.buttons["milestone-threeDays"].waitForExistence(timeout: 15))
+        frame("dark", language: "en")
+        signal("DONE")
+    }
+
     private func captureDemo(language: String) throws {
         guard ProcessInfo.processInfo.environment["FASTING_RECORD_DEMO"] == "1" else {
             throw XCTSkip("Use the FastingDemo scheme and scripts/record_demo.py to record the walkthrough.")

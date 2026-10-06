@@ -9,6 +9,9 @@ struct RootView: View {
             HistoryView()
                 .tabItem { Label("History", systemImage: "clock.arrow.circlepath") }
                 .accessibilityIdentifier("historyTab")
+            LastMealView()
+                .tabItem { Label("Last Meal", systemImage: "fork.knife") }
+                .accessibilityIdentifier("lastMealTab")
         }
     }
 }

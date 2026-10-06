@@ -67,6 +67,18 @@ The bundle ID was registered with the Apple Developer team, and its iCloud/Cloud
 
 The unsigned Release archive passed at `build/distribution/Fasting-rento.xcarchive`; its built Info.plist confirms `com.rento.fasting`, version 0.1.0, build 1. The start, relaunch, finish and History flow passed with the new identifier in `build/RentoIdentifierVerified.xcresult`. Property-list validation passed, and no previous bundle-identifier references remain in the current source or documentation.
 
+## Last Meal tab
+
+A third tab records when the user finished eating, either with **Just Ate** or a date-and-time picker. Its timer derives from the saved meal time and shows complete days plus hours, minutes and seconds. Meal registrations and corrections do not start or finish a fasting session. Entries have CloudKit-compatible defaults; the latest saved action wins, with a stable UUID tie-break when save times match.
+
+All 22 storage/calculation tests and four new UI flows passed in `build/LastMealFinal.xcresult`. The additional ticking-counter UI check passed in `build/LastMealTickVerified.xcresult`. These checks covered disk reopening, an independently active fast, counter resets, corrections to earlier times, future-date rejection, repeated failed saves, merging order, multi-day durations, English, Spanish and the largest accessibility text size. The original start/relaunch/finish/History flow also passed during this feature's initial validation run.
+
+The database-upgrade test created a store with the original fasting-only schema, then added `MealEntry` and reopened it again. Both the completed multi-day fast and active fast were preserved. A read-only-store test exposed that an insertion could remain visible after a failed SwiftData save and rollback. Meal writes now use a short-lived context, so unsuccessful insertions cannot replace the counter's previously saved record. The repeated-failure check passed with this change.
+
+The final unsigned Release archive passed at `build/distribution/Fasting-last-meal-final.xcarchive`, with bundle ID `com.rento.fasting`. All 117 compiler-extracted strings have English and Spanish translations. The normal clock uses a circular design; accessibility text uses a larger card that allows labels to wrap. Screens were visually reviewed in both languages and at the largest text size.
+
+`FastingDemoCapture.testCaptureThreeTabScreens` passed in `build/readme-20261006-174856/Capture.xcresult`. `scripts/capture_readme.py` captured the current three tabs using isolated sample data, exported named XCTest attachments and regenerated the English three-iPhone cover. The cover now shows History, Fast and Last Meal; the new light and dark screenshots and cover were visually reviewed. The simulator appearance was restored and its status-bar override cleared afterward. The earlier video and GIF still illustrate the Fast and History walkthrough; the README includes separate current Last Meal screenshots.
+
 ## Still requires Apple-account validation
 
 Real synchronization between devices has not been tested. It requires a registered CloudKit container, signing with the appropriate team, schema initialization and two devices using the same Apple Account. Capabilities, the private-container configuration and initialization command are implemented; the README describes the setup.

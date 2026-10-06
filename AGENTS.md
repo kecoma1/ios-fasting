@@ -8,6 +8,7 @@
 - Model properties need defaults or optional values for CloudKit. Do not add unique constraints.
 - Do not reset an existing database to recover from initialization errors or silently use in-memory storage.
 - Use explicit saves and rollback on failures. A timer must derive its elapsed duration from the stored start date.
+- The Last Meal tab stores independent MealEntry records. Its counter derives from eatenAt; the latest recordedAt wins, with a stable UUID tie-break. Logging or correcting a meal must not start or finish a fasting session, and adding its schema must preserve existing fasts.
 - Goals are stored in whole hours and can include days (24 elapsed hours each). Keep the day count visible above the clock for multi-day fasts; reaching a goal must never stop or cap the elapsed duration.
 - Milestones derive from the saved start date. Their metabolic explanations are approximate educational references, not measured physiological states; do not claim confirmed ketosis or exact onset times for autophagy or health benefits.
 - If files are added or removed, run `python3 scripts/create_project.py` and commit the generated project.

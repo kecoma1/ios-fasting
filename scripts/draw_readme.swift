@@ -78,7 +78,7 @@ render(width: 1800, height: 1125, to: assets.appendingPathComponent("fasting-her
         ending: NSColor(red: 0.10, green: 0.48, blue: 0.40, alpha: 1)
     )!.draw(in: NSRect(x: 0, y: 0, width: 1800, height: canvasHeight), angle: -35)
     phone("fasting-history-en.png", x: 202, top: 159, width: 436)
-    phone("fasting-dark-en.png", x: 1162, top: 159, width: 436)
+    phone("last-meal-dark-en.png", x: 1162, top: 159, width: 436)
     phone("fasting-timer-en.png", x: 656, top: 55, width: 488)
 }
 print("Rendered the Fasting icon and three-device README cover.")

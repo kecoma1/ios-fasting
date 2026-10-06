@@ -37,7 +37,9 @@ def file(path, kind):
 
 
 app_sources = sorted(str(p.relative_to(ROOT)) for p in (ROOT / "Fasting").rglob("*.swift"))
-unit_sources = ["Tests/FastingStoreTests.swift"] + [p for p in app_sources if "/Models/" in p or p.endswith("FastingStore.swift")]
+unit_sources = sorted(str(p.relative_to(ROOT)) for p in (ROOT / "Tests").rglob("*.swift")) + [
+    p for p in app_sources if "/Models/" in p or p.endswith(("FastingStore.swift", "MealStore.swift"))
+]
 ui_sources = sorted(str(p.relative_to(ROOT)) for p in (ROOT / "UITests").rglob("*.swift"))
 all_sources = sorted(set(app_sources + unit_sources + ui_sources))
 refs = {p: file(p, "sourcecode.swift") for p in all_sources}

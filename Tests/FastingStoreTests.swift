@@ -238,7 +238,7 @@ final class FastingStoreTests: XCTestCase {
     }
 
     func testSchemaIsCompatibleWithCloudKit() throws {
-        let model = try XCTUnwrap(NSManagedObjectModel.makeManagedObjectModel(for: [FastingSession.self]))
+        let model = try XCTUnwrap(NSManagedObjectModel.makeManagedObjectModel(for: [FastingSession.self, MealEntry.self]))
         for entity in model.entities {
             XCTAssertTrue(entity.uniquenessConstraints.isEmpty)
             for attribute in entity.attributesByName.values {

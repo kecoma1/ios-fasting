@@ -36,7 +36,7 @@ enum Persistence {
             try initializeCloudSchema()
         }
         #endif
-        let schema = Schema([FastingSession.self])
+        let schema = Schema([FastingSession.self, MealEntry.self])
         let configuration = ModelConfiguration(
             "Fasting", schema: schema, url: url,
             cloudKitDatabase: cloud ? .private(cloudContainerID) : .none
@@ -44,6 +44,11 @@ enum Persistence {
         let container = try ModelContainer(for: schema, configurations: [configuration])
         container.mainContext.autosaveEnabled = false
         #if DEBUG
+        if !cloud, url.lastPathComponent.hasPrefix("test-"), arguments.contains("-DemoMealData"),
+           try container.mainContext.fetchCount(FetchDescriptor<MealEntry>()) == 0 {
+            let elapsed: TimeInterval = arguments.contains("-DemoMealMultiDay") ? 273_900 : 45_780
+            try MealStore(context: container.mainContext).record(at: Date.now.addingTimeInterval(-elapsed))
+        }
         if !cloud, url.lastPathComponent.hasPrefix("test-"), arguments.contains("-DemoData"),
            try container.mainContext.fetchCount(FetchDescriptor<FastingSession>()) == 0 {
             let now = Date.now
@@ -77,7 +82,7 @@ enum Persistence {
             }
         }
         try autoreleasepool {
-            guard let model = NSManagedObjectModel.makeManagedObjectModel(for: [FastingSession.self]) else {
+            guard let model = NSManagedObjectModel.makeManagedObjectModel(for: [FastingSession.self, MealEntry.self]) else {
                 throw CocoaError(.persistentStoreInvalidType)
             }
             let description = NSPersistentStoreDescription(url: url)

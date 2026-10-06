@@ -193,4 +193,104 @@ final class FastingUITests: XCTestCase {
         XCTAssertTrue(app.buttons["milestone-threeDays"].exists)
         capture("milestones-badges-large-text")
     }
+
+    func testLastMealCanBeRecordedAndSurvivesRelaunchWithoutChangingFast() {
+        let app = launch()
+        XCTAssertEqual(app.tabBars.buttons.count, 3)
+        app.tabBars.buttons["Last Meal"].tap()
+        XCTAssertTrue(app.staticTexts["emptyMealMessage"].waitForExistence(timeout: 5))
+        capture("last-meal-empty-en")
+        app.buttons["recordMealNowButton"].tap()
+        XCTAssertTrue(app.staticTexts["lastMealDate"].waitForExistence(timeout: 5))
+        XCTAssertFalse(app.staticTexts["emptyMealMessage"].exists)
+        let savedDate = app.staticTexts["lastMealDate"].label
+        capture("last-meal-recorded-en")
+        app.terminate()
+        app.launch()
+        app.tabBars.buttons["Last Meal"].tap()
+        XCTAssertTrue(app.staticTexts["lastMealDate"].waitForExistence(timeout: 10))
+        XCTAssertEqual(app.staticTexts["lastMealDate"].label, savedDate)
+        app.tabBars.buttons["Fast"].tap()
+        XCTAssertTrue(app.buttons["startFastButton"].exists)
+        app.buttons["startFastButton"].tap()
+        app.buttons["confirmStartButton"].tap()
+        XCTAssertTrue(app.buttons["finishFastButton"].waitForExistence(timeout: 5))
+        app.tabBars.buttons["Last Meal"].tap()
+        app.buttons["recordMealNowButton"].tap()
+        app.tabBars.buttons["Fast"].tap()
+        XCTAssertTrue(app.buttons["finishFastButton"].exists)
+    }
+
+    func testLastMealShowsMultiDayElapsedTimeAndCanBeReset() {
+        let app = launch(extra: ["-DemoMealData", "-DemoMealMultiDay"])
+        app.tabBars.buttons["Last Meal"].tap()
+        let elapsed = app.staticTexts["mealElapsedTime"]
+        XCTAssertTrue(elapsed.waitForExistence(timeout: 5))
+        XCTAssertTrue((elapsed.value as? String ?? "").contains("3 days"))
+        capture("last-meal-multiday-en")
+        app.terminate()
+        app.launch()
+        app.tabBars.buttons["Last Meal"].tap()
+        XCTAssertTrue(elapsed.waitForExistence(timeout: 10))
+        XCTAssertTrue((elapsed.value as? String ?? "").contains("3 days"))
+        app.buttons["chooseMealTimeButton"].tap()
+        XCTAssertTrue(app.buttons["confirmMealTimeButton"].waitForExistence(timeout: 5))
+        capture("last-meal-time-editor-en")
+        app.buttons["confirmMealTimeButton"].tap()
+        XCTAssertTrue((elapsed.value as? String ?? "").contains("3 days"))
+        app.buttons["recordMealNowButton"].tap()
+        XCTAssertTrue((elapsed.label).contains("Time since last meal"))
+        XCTAssertFalse((elapsed.value as? String ?? "").contains("days"))
+    }
+
+    func testLastMealCounterTicksBetweenMeals() {
+        let app = launch(extra: ["-DemoMealData"])
+        app.tabBars.buttons["Last Meal"].tap()
+        let elapsed = app.staticTexts["mealElapsedTime"]
+        XCTAssertTrue(elapsed.waitForExistence(timeout: 5))
+        let initial = elapsed.value as? String ?? ""
+        XCTAssertTrue(initial.contains("12 hours"))
+        XCTAssertTrue(initial.contains("43 minutes"))
+        let tick = XCTNSPredicateExpectation(predicate: NSPredicate { _, _ in
+            (elapsed.value as? String ?? "") != initial
+        }, object: elapsed)
+        XCTAssertEqual(XCTWaiter.wait(for: [tick], timeout: 5), .completed)
+        capture("last-meal-en")
+        app.buttons["chooseMealTimeButton"].tap()
+        XCTAssertTrue(app.buttons["confirmMealTimeButton"].waitForExistence(timeout: 5))
+        capture("last-meal-editor-en")
+        app.buttons["cancelMealTimeButton"].tap()
+    }
+
+    func testLastMealSpanishLabelsAndPastTimeEditor() {
+        let app = launch(language: "es", extra: ["-DemoMealData"])
+        app.tabBars.buttons["Última comida"].tap()
+        XCTAssertTrue(app.buttons["recordMealNowButton"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.buttons["recordMealNowButton"].label.contains("Acabo de comer"))
+        capture("last-meal-es")
+        app.buttons["chooseMealTimeButton"].tap()
+        XCTAssertTrue(app.buttons["confirmMealTimeButton"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.navigationBars["Hora de la comida"].exists)
+        capture("last-meal-time-editor-es")
+        app.buttons["cancelMealTimeButton"].tap()
+        XCTAssertTrue(app.staticTexts["lastMealDate"].waitForExistence(timeout: 5))
+    }
+
+    func testLastMealCounterAndActionsWithLargestAccessibilityText() {
+        let app = launch(extra: ["-DemoMealData", "-DemoMealMultiDay", "-UIPreferredContentSizeCategoryName",
+                                 "UICTContentSizeCategoryAccessibilityXXXL"])
+        app.tabBars.buttons["Last Meal"].tap()
+        XCTAssertTrue(app.staticTexts["mealElapsedTime"].waitForExistence(timeout: 5))
+        XCTAssertTrue((app.staticTexts["mealElapsedTime"].value as? String ?? "").contains("3 days"))
+        capture("last-meal-large-text")
+        app.swipeUp()
+        app.buttons["chooseMealTimeButton"].tap()
+        XCTAssertTrue(app.buttons["confirmMealTimeButton"].waitForExistence(timeout: 5))
+        capture("last-meal-editor-large-text")
+        app.buttons["cancelMealTimeButton"].tap()
+        app.swipeUp()
+        app.buttons["recordMealNowButton"].tap()
+        XCTAssertTrue(app.staticTexts["lastMealDate"].waitForExistence(timeout: 5))
+        XCTAssertFalse((app.staticTexts["mealElapsedTime"].value as? String ?? "").contains("days"))
+    }
 }
