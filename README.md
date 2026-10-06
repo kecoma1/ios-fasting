@@ -1,137 +1,137 @@
 <p align="center">
-  <img src="docs/assets/fasting-icon.png" width="112" height="112" alt="Icono de Fasting: un reloj de arena sobre un fondo verde">
+  <img src="docs/assets/fasting-icon.png" width="112" height="112" alt="Fasting app icon: an hourglass on a green background">
 </p>
 
 <h1 align="center">Fasting</h1>
 
 <p align="center">
-  <strong>Tu ayuno, a tu ritmo.</strong>
+  <strong>Your fast, at your pace.</strong>
 </p>
 
 <p align="center">
-  Un cronómetro sencillo, un objetivo a tu medida y todos tus ayunos en un mismo lugar.<br>
-  Hecha en Swift para iPhone y iPad, con tus datos guardados en el dispositivo.
+  A simple timer, a goal that fits you, and all your fasts in one place.<br>
+  Built in Swift for iPhone and iPad, with your data stored on your device.
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/iOS-17.0%2B-0A84FF?logo=apple&amp;logoColor=white" alt="iOS 17 o posterior">
+  <img src="https://img.shields.io/badge/iOS-17.0%2B-0A84FF?logo=apple&amp;logoColor=white" alt="iOS 17 or later">
   <img src="https://img.shields.io/badge/Xcode-26.3-147EFB?logo=xcode&amp;logoColor=white" alt="Xcode 26.3">
-  <img src="https://img.shields.io/badge/SwiftUI%20%2B%20SwiftData-F05138?logo=swift&amp;logoColor=white" alt="SwiftUI y SwiftData">
-  <img src="https://img.shields.io/badge/dependencias-ninguna-237D69" alt="Sin dependencias de terceros en la app">
+  <img src="https://img.shields.io/badge/SwiftUI%20%2B%20SwiftData-F05138?logo=swift&amp;logoColor=white" alt="SwiftUI and SwiftData">
+  <img src="https://img.shields.io/badge/dependencies-none-237D69" alt="No third-party app dependencies">
 </p>
 
 <p align="center">
-  <img src="docs/assets/fasting-hero.png" width="900" alt="Tres iPhone con las pantallas reales de Fasting: historial con estadísticas, un ayuno en curso de 12 horas y 43 minutos, y el cronómetro en modo oscuro">
+  <img src="docs/assets/fasting-hero.png" width="900" alt="Three iPhones showing the real Fasting app: history with statistics, a fast in progress at 12 hours and 43 minutes, and the timer in dark mode">
 </p>
 
 <p align="center">
-  <sub>Fasting es el nombre provisional. Las imágenes muestran la app real con ayunos de ejemplo.</sub>
+  <sub>Fasting is the working name. The images show the real app with sample fasts.</sub>
 </p>
 
-## Funciones
+## Features
 
-- **Un reloj que sigue contando.** El tiempo se calcula desde la fecha de inicio guardada. Puedes cerrar la app, bloquear el teléfono o reiniciarlo y continuar donde lo dejaste.
-- **Tu propio objetivo.** Elige entre 1 y 48 horas y sigue el progreso en el anillo central. Puedes cambiarlo durante un ayuno.
-- **Empieza cuando empezaste.** Ajusta la hora de inicio si ya llevabas un rato ayunando.
-- **Tu historial, de un vistazo.** Ayunos agrupados por mes, duración de cada sesión, tiempo total, media y ayuno más largo.
-- **Corrige lo que necesites.** Añade ayunos anteriores, edita sus horarios y objetivo o elimínalos con confirmación.
-- **Nativa y accesible.** Liquid Glass en iOS 26, controles nativos en iOS 17–18, modo claro y oscuro, Dynamic Type, VoiceOver, español e inglés.
-- **Simple y privada.** SwiftData en el dispositivo y sincronización privada con iCloud mediante CloudKit. Sin Firebase, cuentas propias, anuncios ni analítica.
+- **A timer that keeps going.** Elapsed time is calculated from the saved start date. Close the app, lock your phone, or restart it, then pick up where you left off.
+- **Your own goal.** Choose between 1 and 48 hours and follow your progress in the central ring. You can change the goal during a fast.
+- **Start when you actually started.** Adjust the start time if you have already been fasting for a while.
+- **Your history at a glance.** Fasts grouped by month, each session's duration, total time, average duration, and longest fast.
+- **Make corrections.** Add past fasts, edit their times and goals, or delete them with confirmation.
+- **Native and accessible.** Liquid Glass on iOS 26, native controls on iOS 17–18, light and dark mode, Dynamic Type, VoiceOver, English and Spanish.
+- **Simple and private.** On-device SwiftData storage and private iCloud sync through CloudKit. No Firebase, separate accounts, ads, or analytics.
 
-## Así funciona
+## See it in action
 
 <p align="center">
-  <img src="docs/assets/fasting-demo.gif" width="300" alt="Demo de Fasting: cronómetro en marcha, cambio de objetivo, finalización, historial, edición, ajustes y modo oscuro">
+  <img src="docs/assets/fasting-demo.gif" width="300" alt="Fasting demo: a running timer, goal adjustment, finishing a fast, history, editing, settings, and dark mode">
 </p>
 
 <p align="center">
-  <a href="docs/demo/fasting-demo-es.mp4"><strong>Ver el vídeo completo · 1 min 59 s</strong></a><br>
-  <sub>Grabación real del simulador en español. El GIF es un resumen con cortes y reproducción a 1,25×.</sub>
+  <a href="docs/demo/fasting-demo-es.mp4"><strong>Watch the full video · 1 min 59 s</strong></a><br>
+  <sub>Real simulator recording in Spanish. The GIF is an excerpt with cuts and 1.25× playback.</sub>
 </p>
 
 <table>
   <tr>
-    <td align="center" width="25%"><img src="docs/assets/fasting-timer.png" alt="Ayuno en curso con 12 horas y 43 minutos, objetivo de 16 horas y anillo de progreso"></td>
-    <td align="center" width="25%"><img src="docs/assets/fasting-history.png" alt="Historial con cuatro ayunos, duración total, media y sesión más larga"></td>
-    <td align="center" width="25%"><img src="docs/assets/fasting-editor.png" alt="Editor de un ayuno guardado, con fechas de inicio y fin y objetivo ajustables"></td>
-    <td align="center" width="25%"><img src="docs/assets/fasting-dark.png" alt="Cronómetro y controles Liquid Glass en modo oscuro"></td>
+    <td align="center" width="25%"><img src="docs/assets/fasting-timer.png" alt="A fast in progress at 12 hours and 43 minutes, with a 16-hour goal and progress ring"></td>
+    <td align="center" width="25%"><img src="docs/assets/fasting-history.png" alt="History with four fasts, total duration, average duration, and longest session"></td>
+    <td align="center" width="25%"><img src="docs/assets/fasting-editor.png" alt="Editor for a saved fast, with adjustable start and end dates and goal"></td>
+    <td align="center" width="25%"><img src="docs/assets/fasting-dark.png" alt="The timer and Liquid Glass controls in dark mode"></td>
   </tr>
   <tr>
-    <td align="center"><sub>Tu tiempo, en el centro</sub></td>
-    <td align="center"><sub>Todos tus ayunos</sub></td>
-    <td align="center"><sub>Horarios a tu medida</sub></td>
-    <td align="center"><sub>También en modo oscuro</sub></td>
+    <td align="center"><sub>Your time, front and center</sub></td>
+    <td align="center"><sub>All your fasts</sub></td>
+    <td align="center"><sub>Times you can adjust</sub></td>
+    <td align="center"><sub>Dark mode, too</sub></td>
   </tr>
 </table>
 
-Los [ajustes y la información de privacidad](docs/assets/fasting-settings.png) están a un toque del cronómetro.
+[Settings and privacy information](docs/assets/fasting-settings.png) are one tap away from the timer.
 
-## Primeros pasos
+## Getting started
 
-1. **Elige tu objetivo.** Toca el botón debajo del reloj y selecciona la duración.
-2. **Empieza un ayuno.** Confirma la hora de inicio; puedes ajustarla si ya habías empezado.
-3. **Vuelve cuando quieras.** El cronómetro conserva el inicio aunque cierres la app.
-4. **Finaliza y guarda.** El ayuno pasa al Historial, donde puedes consultarlo y editarlo.
+1. **Choose your goal.** Tap the button below the timer and select a duration.
+2. **Start a fast.** Confirm the start time, or adjust it if you already began.
+3. **Come back whenever you like.** The timer remembers the start date even when you close the app.
+4. **Finish and save.** Your fast moves to History, where you can review and edit it.
 
-En **Historial**, el botón **+** permite añadir sesiones anteriores. En **Ajustes** puedes cambiar el objetivo predeterminado y consultar la disponibilidad de tu cuenta de iCloud.
+In **History**, the **+** button lets you add past sessions. In **Settings**, you can change the default goal and check your iCloud account's availability.
 
-## Datos y privacidad
+## Data and privacy
 
 | | |
 | --- | --- |
-| **Qué se guarda** | Un UUID, la fecha de inicio, la fecha de fin opcional y el objetivo de cada ayuno. El objetivo predeterminado se guarda en UserDefaults. |
-| **Dónde se guarda** | Una base SwiftData en `Application Support/Fasting/Fasting.store`, dentro del sandbox de la app. |
-| **iCloud** | En dispositivos físicos, SwiftData solicita sincronización con la base privada de CloudKit de tu cuenta de Apple. El cronómetro funciona sin conexión. El simulador usa únicamente almacenamiento local. |
-| **Cuentas y seguimiento** | No hay registro propio, anuncios, analítica ni SDK de terceros. El [manifiesto de privacidad](Fasting/Resources/PrivacyInfo.xcprivacy) declara que no se recopilan datos ni se realiza seguimiento. |
-| **Permisos** | No se solicita acceso a HealthKit ni se leen datos de otras apps. |
-| **Si falla un guardado** | La operación se revierte y se muestra el error. Si no se puede abrir la base, se conserva y se ofrece reintentar. |
+| **What is stored** | A UUID, the start date, an optional end date, and the goal for each fast. The default goal is stored in UserDefaults. |
+| **Where it is stored** | A SwiftData database at `Application Support/Fasting/Fasting.store`, inside the app's sandbox. |
+| **iCloud** | On physical devices, SwiftData requests synchronization with your Apple Account's private CloudKit database. The timer works offline. The simulator uses local storage only. |
+| **Accounts and tracking** | No separate registration, ads, analytics, or third-party SDKs. The [privacy manifest](Fasting/Resources/PrivacyInfo.xcprivacy) declares no data collection or tracking. |
+| **Permissions** | The app does not request HealthKit access or read data from other apps. |
+| **If a save fails** | The operation is rolled back and an error is shown. If the database cannot be opened, it is preserved and you can retry. |
 
-La sincronización con iCloud es eventual. Ajustes muestra la disponibilidad de la cuenta, no una confirmación de que todos los cambios se hayan sincronizado. Si dos dispositivos sin conexión inician ayunos distintos, se conservan ambos y se pueden gestionar desde Historial.
+Sync with iCloud is eventual. Settings shows account availability, not confirmation that every change has finished syncing. If two offline devices start different fasts, both sessions are preserved and can be managed in History.
 
-Eliminar una sesión se propaga a los dispositivos sincronizados. Borrar la app elimina su copia local; recuperar el historial desde iCloud requiere que los registros se hayan sincronizado previamente.
+Deleting a session propagates to synced devices. Deleting the app removes its local copy; restoring history from iCloud requires the records to have synced beforehand.
 
-## Hecha con
+## Built with
 
-- **Swift y SwiftUI** para toda la interfaz.
-- **SwiftData** para la persistencia local.
-- **CloudKit** para la sincronización con la base privada de iCloud.
-- **Liquid Glass** en iOS 26, con alternativas nativas para versiones anteriores.
-- **XCTest** para las pruebas de almacenamiento y los recorridos de interfaz.
-- Un **String Catalog** para español e inglés.
+- **Swift and SwiftUI** for the entire interface.
+- **SwiftData** for local persistence.
+- **CloudKit** for synchronization with the private iCloud database.
+- **Liquid Glass** on iOS 26, with native alternatives for earlier versions.
+- **XCTest** for storage tests and UI walkthroughs.
+- A **String Catalog** for English and Spanish.
 
-Sin paquetes de terceros en la app. La estructura sigue las convenciones de [ios-clipboard](https://github.com/kecoma1/ios-clipboard).
+No third-party app packages. The structure follows the conventions of [ios-clipboard](https://github.com/kecoma1/ios-clipboard).
 
-## Arquitectura
+## Architecture
 
 ```mermaid
 flowchart LR
-    App["Fasting<br/>SwiftUI"] <-->|leer y guardar| Store[("Base local<br/>SwiftData")]
-    Store <-.->|en dispositivos físicos| Cloud[("iCloud<br/>base privada de CloudKit")]
+    App["Fasting<br/>SwiftUI"] <-->|read and save| Store[("Local database<br/>SwiftData")]
+    Store <-.->|on physical devices| Cloud[("iCloud<br/>private CloudKit database")]
 ```
 
-El reloj deriva su tiempo de la fecha de inicio persistida. Los cambios se guardan explícitamente, con validación y recuperación ante errores; no hace falta mantener un proceso funcionando en segundo plano.
+The timer derives elapsed time from the persisted start date. Changes are saved explicitly, with validation and recovery from errors; no background process needs to keep running.
 
-| Ruta | Contenido |
+| Path | Contents |
 | --- | --- |
-| `Fasting/App/` | Entrada de la app y apertura de la base |
-| `Fasting/Models/` | Sesión, estadísticas y formato del reloj |
-| `Fasting/Storage/` | Validación y persistencia SwiftData/CloudKit |
-| `Fasting/Views/` | Cronómetro, historial, editores, ajustes y estilos |
-| `Fasting/Resources/` | Traducciones, icono, color y manifiesto de privacidad |
-| `Tests/` | Pruebas de almacenamiento y continuidad del reloj |
-| `UITests/` | Flujos de interfaz y recorrido de grabación |
-| `docs/` | Galería, vídeo y [resultados de validación](docs/VALIDATION.md) |
-| `scripts/` | Generación del proyecto, icono y materiales del README |
+| `Fasting/App/` | App entry point and database initialization |
+| `Fasting/Models/` | Sessions, statistics, and timer formatting |
+| `Fasting/Storage/` | Validation and SwiftData/CloudKit persistence |
+| `Fasting/Views/` | Timer, history, editors, settings, and styles |
+| `Fasting/Resources/` | Translations, icon, color, and privacy manifest |
+| `Tests/` | Storage tests and timer continuity |
+| `UITests/` | UI flows and recording walkthrough |
+| `docs/` | Gallery, video, and [validation results](docs/VALIDATION.md) |
+| `scripts/` | Project, icon, and README asset generation |
 
-## Compilar desde el código
+## Building from source
 
-**Requisitos**
+**Requirements**
 
-- Un Mac con **Xcode 26.3**, la versión con la que se desarrolla el proyecto.
-- **iOS 17** o posterior, en iPhone o iPad.
-- No hay paquetes de la app que instalar.
+- A Mac with **Xcode 26.3**, the version used to develop the project.
+- **iOS 17** or later, on iPhone or iPad.
+- No app packages to install.
 
-**Ejecutar en el simulador.** No requiere una cuenta de desarrollador ni iCloud:
+**Run in the Simulator.** No Apple Developer account or iCloud is required:
 
 ```sh
 git clone https://github.com/kecoma1/ios-fasting.git
@@ -139,26 +139,26 @@ cd ios-fasting
 open iOSFasting.xcodeproj
 ```
 
-Selecciona el esquema **Fasting**, elige un simulador de iPhone y pulsa Run. El proyecto Xcode ya está incluido.
+Select the **Fasting** scheme, choose an iPhone simulator, and run. The Xcode project is already included.
 
-**Ejecutar en un iPhone e integrar iCloud.** En **Signing & Capabilities**:
+**Run on an iPhone and set up iCloud.** In **Signing & Capabilities**:
 
-1. Selecciona tu equipo de Apple Developer. El proyecto apunta inicialmente al equipo del autor.
-2. Registra el bundle ID `com.kecoma.fasting` y el contenedor `iCloud.com.kecoma.fasting`, o utiliza tus propios identificadores.
-3. Activa **iCloud / CloudKit**, **Push Notifications** y **Background Modes / Remote notifications**. El proyecto ya incluye las capacidades y entitlements.
-4. Si cambias el contenedor, actualiza `Fasting/Fasting.entitlements` y `Persistence.cloudContainerID` en `Fasting/Storage/Persistence.swift`.
-5. En un dispositivo firmado y con sesión iniciada en iCloud, ejecuta una compilación Debug con **`-InitializeCloudKitSchema`**. El argumento está incluido, desactivado, en el esquema compartido.
-6. Comprueba el esquema en [CloudKit Console](https://icloud.developer.apple.com) y despliégalo a producción antes de distribuir la app.
-7. Comprueba con dos dispositivos de la misma cuenta de Apple que iniciar, finalizar, editar y eliminar ayunos se sincroniza.
+1. Select your Apple Developer team. The project initially points to the author's team.
+2. Register the bundle ID `com.kecoma.fasting` and container `iCloud.com.kecoma.fasting`, or use your own identifiers.
+3. Enable **iCloud / CloudKit**, **Push Notifications**, and **Background Modes / Remote notifications**. The project already includes the capabilities and entitlements.
+4. If you change the container, update `Fasting/Fasting.entitlements` and `Persistence.cloudContainerID` in `Fasting/Storage/Persistence.swift`.
+5. On a signed device logged in to iCloud, run a Debug build with **`-InitializeCloudKitSchema`**. The argument is included in the shared scheme but disabled.
+6. Check the schema in [CloudKit Console](https://icloud.developer.apple.com) and deploy it to production before distributing the app.
+7. Check on two devices signed in to the same Apple Account that fasts stay in sync when you start, finish, edit, or delete them.
 
-La integración está implementada; **la sincronización real entre dispositivos sigue pendiente de validar** con un contenedor aprovisionado y dispositivos firmados. Las compilaciones y pruebas del simulador no comprueban iCloud. Consulta el [registro de validación](docs/VALIDATION.md) para conocer lo que se ha probado.
+The integration is implemented; **real synchronization between devices still needs validation** with a provisioned container and signed devices. Simulator builds and tests do not verify iCloud. See the [validation log](docs/VALIDATION.md) for what has been tested.
 
-## Pruebas
+## Testing
 
-El esquema **Fasting** incluye:
+The **Fasting** scheme includes:
 
-- **`FastingStoreTests`**, con 11 pruebas de persistencia, validación de fechas y objetivos, recuperación de guardados fallidos, estadísticas y continuidad del reloj.
-- **`FastingUITests`**, con flujos de inicio y finalización, edición del historial, español y texto de accesibilidad.
+- **`FastingStoreTests`**, with 11 tests covering persistence, date and goal validation, recovery from failed saves, statistics, and timer continuity.
+- **`FastingUITests`**, covering starting and finishing fasts, history editing, Spanish, and accessibility text sizes.
 
 ```sh
 xcodebuild test -project iOSFasting.xcodeproj -scheme Fasting \
@@ -166,49 +166,49 @@ xcodebuild test -project iOSFasting.xcodeproj -scheme Fasting \
   -parallel-testing-enabled NO CODE_SIGNING_ALLOWED=NO
 ```
 
-Usa un simulador dedicado. Las pruebas abren bases independientes mediante `-UITestStore <UUID>` en Debug y conservan la base normal. Los resultados de XCTest se generan en `build/`.
+Use a dedicated simulator. The tests open independent databases through `-UITestStore <UUID>` in Debug and preserve the normal database. XCTest results are generated in `build/`.
 
-## Proyecto y materiales visuales
+## Project and visual assets
 
-Si añades o quitas archivos de código, regenera el proyecto sin instalar XcodeGen:
+If you add or remove source files, regenerate the project without installing XcodeGen:
 
 ```sh
 python3 scripts/create_project.py
 ```
 
-Para regenerar el icono con AppKit:
+To regenerate the icon with AppKit:
 
 ```sh
 swift scripts/draw_icon.swift
 ```
 
-Para grabar el vídeo, usa un simulador dedicado ya arrancado y **FFmpeg** instalado:
+To record the video, use an already booted dedicated simulator with **FFmpeg** installed:
 
 ```sh
-python3 scripts/record_demo.py --device <UDID-del-simulador>
+python3 scripts/record_demo.py --device <simulator-UDID>
 ```
 
-El esquema **FastingDemo** ejecuta el recorrido con pausas y una base independiente de ayunos ficticios, disponible solo en Debug. El esquema normal omite esta prueba de grabación.
+The **FastingDemo** scheme runs the walkthrough with pauses and an independent database of sample fasts, available only in Debug. The normal scheme skips this recording test.
 
-La portada combina capturas reales en marcos de iPhone dibujados con AppKit. La galería y el GIF se extraen del vídeo guardado con FFmpeg:
+The cover combines real screenshots in iPhone frames drawn with AppKit. The gallery and GIF are extracted from the saved video with FFmpeg:
 
 ```sh
 python3 scripts/create_readme_assets.py
 ```
 
-Si sustituyes el vídeo por otra grabación, ajusta los tiempos de los fotogramas y los cortes en ese script. No se necesita instalar ningún paquete de Python.
+If you replace the video with another recording, adjust the frame times and cuts in that script. No Python packages need to be installed.
 
-## Contribuir
+## Contributing
 
-Puedes [abrir una incidencia](https://github.com/kecoma1/ios-fasting/issues) con tu versión de iOS, dispositivo y pasos para reproducir el problema. Las propuestas y los pull requests deben mantener la app sencilla, nativa y sin dependencias externas.
+[Open an issue](https://github.com/kecoma1/ios-fasting/issues) with your iOS version, device, and steps to reproduce the problem. Proposals and pull requests should keep the app simple, native, and free of external dependencies.
 
-El nombre y los identificadores son provisionales. Aún no se incluye configuración de App Store Connect, widgets, Live Activities ni monetización.
+The name and identifiers are provisional. App Store Connect setup, widgets, Live Activities, and monetization are not included yet.
 
-## Licencia
+## License
 
-El proyecto todavía no tiene una licencia.
+This project does not have a license yet.
 
-## Referencias de Apple
+## Apple references
 
-- [Sincronización de modelos SwiftData con iCloud](https://developer.apple.com/documentation/swiftdata/syncing-model-data-across-a-persons-devices).
-- [Liquid Glass en vistas SwiftUI](https://developer.apple.com/documentation/swiftui/applying-liquid-glass-to-custom-views).
+- [Syncing SwiftData models with iCloud](https://developer.apple.com/documentation/swiftdata/syncing-model-data-across-a-persons-devices).
+- [Liquid Glass in SwiftUI views](https://developer.apple.com/documentation/swiftui/applying-liquid-glass-to-custom-views).
