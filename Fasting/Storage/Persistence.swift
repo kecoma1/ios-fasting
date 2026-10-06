@@ -1,0 +1,77 @@
+import Foundation
+import SwiftData
+#if DEBUG
+import CoreData
+import _SwiftData_CoreData
+#endif
+
+enum Persistence {
+    static let cloudContainerID = "iCloud.com.kecoma.fasting"
+
+    static var usesCloud: Bool {
+        #if targetEnvironment(simulator)
+        false
+        #else
+        true
+        #endif
+    }
+
+    @MainActor
+    static func makeContainer() throws -> ModelContainer {
+        let directory = try FileManager.default.url(
+            for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: true
+        ).appendingPathComponent("Fasting", isDirectory: true)
+        try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
+        var url = directory.appendingPathComponent("Fasting.store")
+        var cloud = usesCloud
+        #if DEBUG
+        let arguments = ProcessInfo.processInfo.arguments
+        // UI tests get their own persistent store; they never reset the user's database.
+        if let index = arguments.firstIndex(of: "-UITestStore"), arguments.indices.contains(index + 1),
+           let id = UUID(uuidString: arguments[index + 1]) {
+            url = directory.appendingPathComponent("test-\(id.uuidString).store")
+            cloud = false
+        }
+        if arguments.contains("-InitializeCloudKitSchema") {
+            try initializeCloudSchema()
+        }
+        #endif
+        let schema = Schema([FastingSession.self])
+        let configuration = ModelConfiguration(
+            "Fasting", schema: schema, url: url,
+            cloudKitDatabase: cloud ? .private(cloudContainerID) : .none
+        )
+        let container = try ModelContainer(for: schema, configurations: [configuration])
+        container.mainContext.autosaveEnabled = false
+        return container
+    }
+
+    #if DEBUG
+    /// Use a disposable store and unload it before SwiftData opens the real database.
+    private static func initializeCloudSchema() throws {
+        let url = FileManager.default.temporaryDirectory.appendingPathComponent("schema-\(UUID()).store")
+        defer {
+            for suffix in ["", "-wal", "-shm"] {
+                try? FileManager.default.removeItem(atPath: url.path + suffix)
+            }
+        }
+        try autoreleasepool {
+            guard let model = NSManagedObjectModel.makeManagedObjectModel(for: [FastingSession.self]) else {
+                throw CocoaError(.persistentStoreInvalidType)
+            }
+            let description = NSPersistentStoreDescription(url: url)
+            description.cloudKitContainerOptions = NSPersistentCloudKitContainerOptions(containerIdentifier: cloudContainerID)
+            description.shouldAddStoreAsynchronously = false
+            let container = NSPersistentCloudKitContainer(name: "Fasting", managedObjectModel: model)
+            container.persistentStoreDescriptions = [description]
+            var loadError: Error?
+            container.loadPersistentStores { _, error in loadError = error }
+            if let loadError { throw loadError }
+            try container.initializeCloudKitSchema()
+            if let store = container.persistentStoreCoordinator.persistentStores.first {
+                try container.persistentStoreCoordinator.remove(store)
+            }
+        }
+    }
+    #endif
+}
