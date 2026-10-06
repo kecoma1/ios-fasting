@@ -6,7 +6,7 @@ import _SwiftData_CoreData
 #endif
 
 enum Persistence {
-    static let cloudContainerID = "iCloud.com.kecoma.fasting"
+    static let cloudContainerID = "iCloud.com.rento.fasting"
 
     static var usesCloud: Bool {
         #if targetEnvironment(simulator)

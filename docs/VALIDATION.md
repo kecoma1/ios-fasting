@@ -59,6 +59,14 @@ The README's text, screenshots, cover, GIF and linked walkthrough are in English
 
 `docs/assets/fasting-hero-en.png` follows the `ios-clipboard` cover: three aligned iPhones, a larger center device and a mint/emerald gradient. The screens are real English captures of History, the active timer with badges and a three-day fast in dark mode. AppKit draws the device frames and display cutouts without changing the app interface. The cover and English gallery were visually reviewed, and local README references were checked.
 
+## Rento bundle identifier
+
+The app now uses `com.rento.fasting`; both test targets use the same prefix. The project generator, generated Xcode project, entitlements, persistence configuration and README were updated together. The configured private CloudKit container is `iCloud.com.rento.fasting`.
+
+The bundle ID was registered with the Apple Developer team, and its iCloud/CloudKit and Push Notifications capabilities were enabled and read back through the App Store Connect API. Registering and associating the iCloud container, provisioning and production-schema deployment still require Apple-account setup.
+
+The unsigned Release archive passed at `build/distribution/Fasting-rento.xcarchive`; its built Info.plist confirms `com.rento.fasting`, version 0.1.0, build 1. The start, relaunch, finish and History flow passed with the new identifier in `build/RentoIdentifierVerified.xcresult`. Property-list validation passed, and no previous bundle-identifier references remain in the current source or documentation.
+
 ## Still requires Apple-account validation
 
 Real synchronization between devices has not been tested. It requires a registered CloudKit container, signing with the appropriate team, schema initialization and two devices using the same Apple Account. Capabilities, the private-container configuration and initialization command are implemented; the README describes the setup.

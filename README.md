@@ -147,7 +147,7 @@ Select the **Fasting** scheme, choose an iPhone simulator, and run. The Xcode pr
 **Run on an iPhone and set up iCloud.** In **Signing & Capabilities**:
 
 1. Select your Apple Developer team. The project initially points to the author's team.
-2. Register the bundle ID `com.kecoma.fasting` and container `iCloud.com.kecoma.fasting`, or use your own identifiers.
+2. Register the bundle ID `com.rento.fasting` and container `iCloud.com.rento.fasting`, or use your own identifiers.
 3. Enable **iCloud / CloudKit**, **Push Notifications**, and **Background Modes / Remote notifications**. The project already includes the capabilities and entitlements.
 4. If you change the container, update `Fasting/Fasting.entitlements` and `Persistence.cloudContainerID` in `Fasting/Storage/Persistence.swift`.
 5. On a signed device logged in to iCloud, run a Debug build with **`-InitializeCloudKitSchema`**. The argument is included in the shared scheme but disabled.
@@ -205,7 +205,7 @@ The recording exports named screenshots and a timing manifest. Its optional `cli
 
 [Open an issue](https://github.com/kecoma1/ios-fasting/issues) with your iOS version, device, and steps to reproduce the problem. Proposals and pull requests should keep the app simple, native, and free of external dependencies.
 
-The name and identifiers are provisional. App Store Connect setup, widgets, Live Activities, and monetization are not included yet.
+The app name is provisional. App Store Connect setup, widgets, Live Activities, and monetization are not included yet.
 
 ## License
 
