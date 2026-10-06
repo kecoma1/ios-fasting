@@ -139,4 +139,58 @@ final class FastingUITests: XCTestCase {
         XCTAssertTrue(row.waitForExistence(timeout: 5))
         capture("history-multiday-en")
     }
+
+    func testMilestonesAccumulateRestoreAndResetForANewFast() {
+        let app = launch(extra: ["-DemoData"], active: true)
+        XCTAssertTrue(app.buttons["milestone-reserves"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.buttons["milestone-fatFuel"].exists)
+        XCTAssertFalse(app.buttons["milestone-ketones"].exists)
+        XCTAssertFalse(app.buttons["milestone-oneDay"].exists)
+        capture("milestones-timer-en")
+        app.buttons["milestone-fatFuel"].tap()
+        XCTAssertTrue(app.buttons["closeMilestoneGuideButton"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.staticTexts.matching(NSPredicate(format: "label CONTAINS %@", "does not detect fat burning")).firstMatch.exists)
+        capture("milestones-guide-en")
+        app.buttons["closeMilestoneGuideButton"].tap()
+        app.terminate()
+        app.launch()
+        XCTAssertTrue(app.buttons["milestone-reserves"].waitForExistence(timeout: 10))
+        XCTAssertTrue(app.buttons["milestone-fatFuel"].exists)
+        app.swipeUp()
+        app.buttons["finishFastButton"].tap()
+        app.buttons["Finish and Save"].tap()
+        XCTAssertTrue(app.buttons["startFastButton"].waitForExistence(timeout: 5))
+        XCTAssertFalse(app.buttons["milestone-reserves"].exists)
+        app.buttons["startFastButton"].tap()
+        app.buttons["confirmStartButton"].tap()
+        XCTAssertTrue(app.buttons["milestoneGuideButton"].waitForExistence(timeout: 5))
+        XCTAssertFalse(app.buttons["milestone-reserves"].exists)
+    }
+
+    func testAllMultiDayMilestonesAndSpanishDetails() {
+        let app = launch(language: "es", extra: ["-DemoData", "-DemoMultiDay"], active: true)
+        for id in ["reserves", "fatFuel", "ketones", "oneDay", "twoDays", "threeDays"] {
+            XCTAssertTrue(app.buttons["milestone-\(id)"].waitForExistence(timeout: 5))
+        }
+        capture("milestones-multiday-es")
+        app.buttons["milestone-ketones"].tap()
+        XCTAssertTrue(app.buttons["closeMilestoneGuideButton"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.staticTexts.matching(NSPredicate(format: "label CONTAINS %@", "no confirma la cetosis")).firstMatch.exists)
+        capture("milestones-ketones-es")
+        app.buttons["closeMilestoneGuideButton"].tap()
+        XCTAssertTrue(app.buttons["milestone-threeDays"].waitForExistence(timeout: 5))
+    }
+
+    func testMilestoneBadgesWithLargestAccessibilityText() {
+        let app = launch(extra: ["-DemoData", "-DemoMultiDay", "-UIPreferredContentSizeCategoryName",
+                                 "UICTContentSizeCategoryAccessibilityXXXL"], active: true)
+        app.swipeUp()
+        app.buttons["milestone-ketones"].tap()
+        XCTAssertTrue(app.buttons["closeMilestoneGuideButton"].waitForExistence(timeout: 5))
+        capture("milestones-guide-large-text")
+        app.buttons["closeMilestoneGuideButton"].tap()
+        app.swipeUp()
+        XCTAssertTrue(app.buttons["milestone-threeDays"].exists)
+        capture("milestones-badges-large-text")
+    }
 }

@@ -37,6 +37,16 @@ Las 13 pruebas de almacenamiento pasaron. Los seis flujos de interfaz pasaron, i
 
 Las capturas reales con datos ficticios están en `docs/assets/timer-multiday-en.png`, `history-multiday-en.png` y `goal-multiday-en.png`. Los resultados de esta comprobación están en `build/MultiDayFinal.xcresult` (almacenamiento y cinco flujos de interfaz correctos; un fallo de selección del botón en la prueba de objetivos) y `build/MultiDayPickerVerified.xcresult` (los dos flujos afectados, correctos).
 
+## Insignias de etapas
+
+Se añadieron seis insignias acumulativas debajo del cronómetro: referencias educativas a las 8, 12 y 16 horas y marcas de duración a las 24, 48 y 72 horas. Cada insignia abre una explicación y las fuentes están disponibles en la guía. Los tiempos metabólicos se presentan como aproximados; el reloj no confirma cetosis ni mide estados fisiológicos.
+
+Las insignias se calculan a partir del inicio guardado, sin añadir campos al esquema de SwiftData. Se comprobaron los límites un segundo antes y en el instante exacto de cada hito, la acumulación en ayunos de varios días, la reapertura del almacenamiento, una corrección del inicio, la duración final inmutable y el reinicio de las insignias para un nuevo ayuno.
+
+Las 16 pruebas de almacenamiento y cálculo y los cuatro recorridos relevantes de interfaz pasaron en `build/MilestonesVerified.xcresult`: insignias acumuladas y reapertura, terminar e iniciar otro ayuno, los seis hitos y la explicación de cetonas en español, texto de accesibilidad de tamaño máximo, y el recorrido de inicio, reapertura, finalización e historial. La compilación Release para iPhone sin firma pasó y las 102 cadenas extraídas por el compilador tienen traducción al inglés y español.
+
+Se revisaron las capturas de insignias y explicaciones en ambos idiomas y con texto grande. Las tres capturas seleccionadas están en `docs/assets/milestones-timer-en.png`, `milestones-multiday-es.png` y `milestones-ketones-es.png`.
+
 ## Pendiente de validar con la cuenta de Apple
 
 La sincronización real entre dispositivos no se ha comprobado. Requiere registrar el nuevo contenedor CloudKit, firmar con el equipo correspondiente, inicializar el esquema y probar con dos dispositivos de la misma cuenta de Apple. Las capacidades, configuración del contenedor privado y comando de inicialización están implementados; los pasos están descritos en el README.

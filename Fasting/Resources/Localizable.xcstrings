@@ -1326,6 +1326,414 @@
           }
         }
       }
+    },
+    "Energy reserves": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Energy reserves"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reservas de energía"
+          }
+        }
+      }
+    },
+    "Fat as fuel": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fat as fuel"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Grasas como energía"
+          }
+        }
+      }
+    },
+    "Ketone transition": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ketone transition"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Transición a cetonas"
+          }
+        }
+      }
+    },
+    "One day": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "One day"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un día"
+          }
+        }
+      }
+    },
+    "Two days": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Two days"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dos días"
+          }
+        }
+      }
+    },
+    "Three days": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Three days"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tres días"
+          }
+        }
+      }
+    },
+    "≈ %@": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "≈ %@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "≈ %@"
+          }
+        }
+      }
+    },
+    "Between meals, the liver helps supply glucose from stored glycogen. The 8-hour badge is a time checkpoint for learning about this process; it does not measure your reserves or mean they are depleted.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Between meals, the liver helps supply glucose from stored glycogen. The 8-hour badge is a time checkpoint for learning about this process; it does not measure your reserves or mean they are depleted."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Entre comidas, el hígado ayuda a suministrar glucosa a partir del glucógeno almacenado. La insignia de 8 horas es una referencia temporal para conocer este proceso; no mide tus reservas ni significa que se hayan agotado."
+          }
+        }
+      }
+    },
+    "As fasting continues, stored fat can provide a growing share of energy. This is a gradual shift, influenced by your previous meals and activity. The 12-hour badge does not detect fat burning.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "As fasting continues, stored fat can provide a growing share of energy. This is a gradual shift, influenced by your previous meals and activity. The 12-hour badge does not detect fat burning."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A medida que continúa el ayuno, las grasas almacenadas pueden aportar una mayor parte de la energía. Es un cambio gradual, influido por tus comidas anteriores y tu actividad. La insignia de 12 horas no detecta la quema de grasas."
+          }
+        }
+      }
+    },
+    "The liver can produce more ketones as fuel during fasting. The metabolic transition is often described over roughly 12–36 hours and varies between people. The 16-hour badge is an educational reference; it does not confirm ketosis.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The liver can produce more ketones as fuel during fasting. The metabolic transition is often described over roughly 12–36 hours and varies between people. The 16-hour badge is an educational reference; it does not confirm ketosis."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Durante el ayuno, el hígado puede producir más cetonas como fuente de energía. La transición metabólica suele describirse en un intervalo aproximado de 12–36 horas y varía entre personas. La insignia de 16 horas es una referencia educativa; no confirma la cetosis."
+          }
+        }
+      }
+    },
+    "24 hours have elapsed since your saved start time. This badge records time, without making a claim about a new biological stage or a health benefit.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "24 hours have elapsed since your saved start time. This badge records time, without making a claim about a new biological stage or a health benefit."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Han transcurrido 24 horas desde la hora de inicio guardada. Esta insignia registra tiempo, sin afirmar que haya una nueva etapa biológica ni un beneficio para la salud."
+          }
+        }
+      }
+    },
+    "48 hours have elapsed since your saved start time. Earlier badges stay visible. This is a duration checkpoint, not a recommendation to extend your fast.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "48 hours have elapsed since your saved start time. Earlier badges stay visible. This is a duration checkpoint, not a recommendation to extend your fast."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Han transcurrido 48 horas desde la hora de inicio guardada. Las insignias anteriores siguen visibles. Es un hito de duración, no una recomendación de prolongar el ayuno."
+          }
+        }
+      }
+    },
+    "72 hours have elapsed since your saved start time. Your timer can keep counting, and all reached badges remain visible until you finish this fast. This checkpoint does not indicate additional health benefits.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "72 hours have elapsed since your saved start time. Your timer can keep counting, and all reached badges remain visible until you finish this fast. This checkpoint does not indicate additional health benefits."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Han transcurrido 72 horas desde la hora de inicio guardada. El cronómetro puede seguir contando y todas las insignias alcanzadas siguen visibles hasta que termines este ayuno. Este hito no indica beneficios adicionales para la salud."
+          }
+        }
+      }
+    },
+    "Learn about this time checkpoint": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Learn about this time checkpoint"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Conoce esta etapa del ayuno"
+          }
+        }
+      }
+    },
+    "About milestones": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "About milestones"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sobre las etapas"
+          }
+        }
+      }
+    },
+    "Approximate stages · times vary": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Approximate stages · times vary"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Etapas aproximadas · los tiempos varían"
+          }
+        }
+      }
+    },
+    "Badges mark time since your fast began. Metabolic changes are gradual and depend on your meals, activity and health; the app does not measure them or confirm ketosis.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Badges mark time since your fast began. Metabolic changes are gradual and depend on your meals, activity and health; the app does not measure them or confirm ketosis."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Las insignias indican el tiempo desde que comenzó tu ayuno. Los cambios metabólicos son graduales y dependen de tus comidas, actividad y salud; la app no los mide ni confirma la cetosis."
+          }
+        }
+      }
+    },
+    "All milestones": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "All milestones"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Todas las etapas"
+          }
+        }
+      }
+    },
+    "Sources": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sources"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fuentes"
+          }
+        }
+      }
+    },
+    "Metabolic switching · scientific review": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Metabolic switching · scientific review"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Transición metabólica · revisión científica"
+          }
+        }
+      }
+    },
+    "Fasting metabolism · human study": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fasting metabolism · human study"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Metabolismo en ayuno · estudio en humanos"
+          }
+        }
+      }
+    },
+    "The 8-, 12- and 16-hour checkpoints are approximate educational references. The 24-, 48- and 72-hour badges record elapsed time. None of these badges recommends a fasting duration.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The 8-, 12- and 16-hour checkpoints are approximate educational references. The 24-, 48- and 72-hour badges record elapsed time. None of these badges recommends a fasting duration."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Los hitos de 8, 12 y 16 horas son referencias educativas aproximadas. Las insignias de 24, 48 y 72 horas registran tiempo transcurrido. Ninguna de estas insignias recomienda una duración de ayuno."
+          }
+        }
+      }
+    },
+    "Fasting milestones": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fasting milestones"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Etapas del ayuno"
+          }
+        }
+      }
+    },
+    "Time checkpoint reached": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Time checkpoint reached"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hito de tiempo alcanzado"
+          }
+        }
+      }
     }
   },
   "version": "1.0"

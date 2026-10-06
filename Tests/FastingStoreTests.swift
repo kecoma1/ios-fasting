@@ -195,6 +195,48 @@ final class FastingStoreTests: XCTestCase {
         XCTAssertEqual(session.progress(at: now.addingTimeInterval(20 * 3_600)), 1)
     }
 
+    func testMilestonesUnlockAtTheirBoundaryAndAccumulateAcrossDays() {
+        XCTAssertTrue(FastingMilestone.reached(after: -60).isEmpty)
+        XCTAssertTrue(FastingMilestone.reached(after: 0).isEmpty)
+        for (index, milestone) in FastingMilestone.allCases.enumerated() {
+            let previous = Array(FastingMilestone.allCases.prefix(index))
+            XCTAssertEqual(FastingMilestone.reached(after: milestone.threshold - 1), previous)
+            XCTAssertEqual(FastingMilestone.reached(after: milestone.threshold), previous + [milestone])
+        }
+        XCTAssertEqual(FastingMilestone.reached(after: 15 * 86_400), FastingMilestone.allCases)
+    }
+
+    func testMilestonesFollowPersistedAndEditedStartWithoutExtraStoredState() throws {
+        let directory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+        try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
+        defer { try? FileManager.default.removeItem(atPath: directory.path) }
+        let url = directory.appendingPathComponent("milestones.store")
+        try autoreleasepool {
+            let db = try container(url: url)
+            let session = try FastingStore(context: db.mainContext).start(
+                at: now.addingTimeInterval(-18 * 3_600), goalHours: 72, now: now)
+            XCTAssertEqual(FastingMilestone.reached(after: session.elapsed(at: now)), [.reserves, .fatFuel, .ketones])
+        }
+        let db = try container(url: url)
+        let session = try XCTUnwrap(db.mainContext.fetch(FetchDescriptor<FastingSession>()).first)
+        XCTAssertEqual(FastingMilestone.reached(after: session.elapsed(at: now)), [.reserves, .fatFuel, .ketones])
+        try FastingStore(context: db.mainContext).update(session, start: now.addingTimeInterval(-10 * 3_600),
+                                                       end: nil, goalHours: 72, now: now)
+        XCTAssertEqual(FastingMilestone.reached(after: session.elapsed(at: now)), [.reserves])
+    }
+
+    func testFinishedMilestonesFreezeAndNewFastStartsWithoutBadges() throws {
+        let db = try container()
+        let store = FastingStore(context: db.mainContext)
+        let previous = try store.start(at: now.addingTimeInterval(-25 * 3_600), goalHours: 16, now: now)
+        try store.finish(previous, at: now, now: now)
+        let frozen = FastingMilestone.reached(after: previous.elapsed(at: now))
+        XCTAssertEqual(frozen, [.reserves, .fatFuel, .ketones, .oneDay])
+        XCTAssertEqual(FastingMilestone.reached(after: previous.elapsed(at: now.addingTimeInterval(7 * 86_400))), frozen)
+        let next = try store.start(at: now, goalHours: 16, now: now)
+        XCTAssertTrue(FastingMilestone.reached(after: next.elapsed(at: now)).isEmpty)
+    }
+
     func testSchemaIsCompatibleWithCloudKit() throws {
         let model = try XCTUnwrap(NSManagedObjectModel.makeManagedObjectModel(for: [FastingSession.self]))
         for entity in model.entities {

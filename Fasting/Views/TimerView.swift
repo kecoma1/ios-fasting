@@ -31,11 +31,17 @@ struct TimerView: View {
                         .foregroundStyle(.secondary)
                         .padding(.top, 20)
                     TimelineView(.periodic(from: .now, by: 1)) { timeline in
-                        TimerRing(
-                            elapsed: active?.elapsed(at: timeline.date) ?? 0,
-                            progress: active?.progress(at: timeline.date) ?? 0,
-                            active: active != nil
-                        )
+                        VStack(spacing: 18) {
+                            TimerRing(
+                                elapsed: active?.elapsed(at: timeline.date) ?? 0,
+                                progress: active?.progress(at: timeline.date) ?? 0,
+                                active: active != nil
+                            )
+                            if let active {
+                                MilestoneBadgesView(elapsed: active.elapsed(at: timeline.date))
+                                    .id(active.id)
+                            }
+                        }
                     }
                     Button {
                         selectedGoal = active?.goalHours ?? goalHours

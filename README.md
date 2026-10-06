@@ -32,6 +32,7 @@
 
 - **A timer that keeps going.** Elapsed time is calculated from the saved start date. Close the app, lock your phone, or restart it, then pick up where you left off.
 - **Hours or days.** Choose a goal from 1 hour to 365 days, including mixed durations such as 3 days and 4 hours. The timer shows days separately from `HH:MM:SS` and keeps counting after the goal; it never ends a fast automatically.
+- **Milestones below your timer.** Small badges accumulate at 8, 12, 16, 24, 48 and 72 hours. Tap one to learn about energy reserves, fat as fuel, ketone production or the elapsed-day checkpoint. Early metabolic stages are approximate educational references; the app does not measure metabolism or confirm ketosis.
 - **Start when you actually started.** Adjust the start time if you have already been fasting for a while.
 - **Your history at a glance.** Fasts grouped by month, each session's duration, total time, average duration, and longest fast.
 - **Make corrections.** Add past fasts, edit their times and goals, or delete them with confirmation.
@@ -67,6 +68,19 @@
 [Settings and privacy information](docs/assets/fasting-settings.png) are one tap away from the timer.
 
 Multi-day examples: [a timer after three days](docs/assets/timer-multiday-en.png), [the full duration in History](docs/assets/history-multiday-en.png), and [choosing a three-day goal](docs/assets/goal-multiday-en.png). A day represents 24 elapsed hours.
+
+<table>
+  <tr>
+    <td align="center" width="33%"><img src="docs/assets/milestones-timer-en.png" alt="Two accumulated milestone badges below the timer after 12 hours: energy reserves and fat as fuel"></td>
+    <td align="center" width="33%"><img src="docs/assets/milestones-multiday-es.png" alt="A three-day fast with all six milestone badges, shown in Spanish"></td>
+    <td align="center" width="33%"><img src="docs/assets/milestones-ketones-es.png" alt="Tapping the ketone badge opens an explanation of approximate timing and individual variation"></td>
+  </tr>
+  <tr>
+    <td align="center"><sub>Badges accumulate below the timer</sub></td>
+    <td align="center"><sub>Earlier milestones stay with you</sub></td>
+    <td align="center"><sub>Tap a badge to learn more</sub></td>
+  </tr>
+</table>
 
 ## Getting started
 
@@ -159,8 +173,8 @@ The integration is implemented; **real synchronization between devices still nee
 
 The **Fasting** scheme includes:
 
-- **`FastingStoreTests`**, with 13 tests covering persistence, date and goal validation, recovery from failed saves, statistics, timer continuity, and fasts lasting several days.
-- **`FastingUITests`**, covering starting and finishing fasts, history editing, Spanish, accessibility text sizes, choosing goals in days, and reopening and saving a multi-day fast.
+- **`FastingStoreTests`**, with 16 tests covering persistence, date and goal validation, recovery from failed saves, statistics, timer continuity, multi-day fasts, and milestone boundaries, edits and resets.
+- **`FastingUITests`**, covering starting and finishing fasts, history editing, Spanish, accessibility text sizes, choosing goals in days, reopening and saving a multi-day fast, and cumulative milestone badges and their explanations.
 
 ```sh
 xcodebuild test -project iOSFasting.xcodeproj -scheme Fasting \
@@ -214,3 +228,10 @@ This project does not have a license yet.
 
 - [Syncing SwiftData models with iCloud](https://developer.apple.com/documentation/swiftdata/syncing-model-data-across-a-persons-devices).
 - [Liquid Glass in SwiftUI views](https://developer.apple.com/documentation/swiftui/applying-liquid-glass-to-custom-views).
+
+## Milestone references
+
+The 8-, 12- and 16-hour badges introduce overlapping metabolic processes at time checkpoints chosen for this interface. They are not exact biological thresholds. The shift toward greater use of fatty acids and ketones varies with previous meals, activity and individual physiology, and is commonly described across roughly 12–36 hours. The 24-, 48- and 72-hour badges simply record elapsed time. Badge state is derived from the saved start date, so reopening the app or correcting a start time keeps it consistent.
+
+- [Flipping the Metabolic Switch (2018 review)](https://pmc.ncbi.nlm.nih.gov/articles/PMC5783752/).
+- [Impaired ketogenesis and increased acetyl-CoA oxidation promote hyperglycemia in human fatty liver (2019 human study)](https://doi.org/10.1172/jci.insight.127737).
