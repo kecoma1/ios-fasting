@@ -165,7 +165,7 @@ Select the **Fasting** scheme, choose an iPhone simulator, and run. The Xcode pr
 6. Check the schema in [CloudKit Console](https://icloud.developer.apple.com) and deploy it to production before distributing the app.
 7. Check on two devices signed in to the same Apple Account that fasts stay in sync when you start, finish, edit, or delete them.
 
-The integration is implemented; **real synchronization between devices still needs validation** with a provisioned container and signed devices. Simulator builds and tests do not verify iCloud. See the [validation log](docs/VALIDATION.md) for what has been tested.
+The author's CloudKit container is registered and its fasting and meal schemas are deployed to production. **Real synchronization between two devices still needs validation.** Simulator builds and tests do not verify iCloud. See the [validation log](docs/VALIDATION.md) for what has been tested.
 
 ## Testing
 
@@ -223,7 +223,7 @@ The recording exports named screenshots and a timing manifest. Its optional `cli
 
 [Open an issue](https://github.com/kecoma1/ios-fasting/issues) with your iOS version, device, and steps to reproduce the problem. Proposals and pull requests should keep the app simple, native, and free of external dependencies.
 
-The app name is provisional. App Store Connect setup, widgets, Live Activities, and monetization are not included yet.
+The app name is provisional. Version **0.1.0 (1)** is available to the author's internal TestFlight group. Widgets, Live Activities, and monetization are not included yet.
 
 ## License
 

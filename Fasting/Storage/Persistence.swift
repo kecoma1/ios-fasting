@@ -94,6 +94,7 @@ enum Persistence {
             container.loadPersistentStores { _, error in loadError = error }
             if let loadError { throw loadError }
             try container.initializeCloudKitSchema()
+            print("Fasting: CloudKit development schema initialized.")
             if let store = container.persistentStoreCoordinator.persistentStores.first {
                 try container.persistentStoreCoordinator.remove(store)
             }

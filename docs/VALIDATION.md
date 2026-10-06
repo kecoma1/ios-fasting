@@ -1,6 +1,6 @@
 # Validation log
 
-Date: 6 October 2026. Xcode 26.3, iOS 26.2 SDK and a dedicated iPhone 17 Pro simulator running iOS 26.3.
+Dates: 6–7 October 2026. Xcode 26.3, iOS 26.2 SDK and a dedicated iPhone 17 Pro simulator running iOS 26.3.
 
 ## Initial app
 
@@ -63,7 +63,7 @@ The README's text, screenshots, cover, GIF and linked walkthrough are in English
 
 The app now uses `com.rento.fasting`; both test targets use the same prefix. The project generator, generated Xcode project, entitlements, persistence configuration and README were updated together. The configured private CloudKit container is `iCloud.com.rento.fasting`.
 
-The bundle ID was registered with the Apple Developer team, and its iCloud/CloudKit and Push Notifications capabilities were enabled and read back through the App Store Connect API. Registering and associating the iCloud container, provisioning and production-schema deployment still require Apple-account setup.
+The bundle ID was registered with the Apple Developer team, and its iCloud/CloudKit and Push Notifications capabilities were enabled and read back through the App Store Connect API. Container association, provisioning and production-schema deployment were subsequently completed during the first TestFlight upload, as described below.
 
 The unsigned Release archive passed at `build/distribution/Fasting-rento.xcarchive`; its built Info.plist confirms `com.rento.fasting`, version 0.1.0, build 1. The start, relaunch, finish and History flow passed with the new identifier in `build/RentoIdentifierVerified.xcresult`. Property-list validation passed, and no previous bundle-identifier references remain in the current source or documentation.
 
@@ -79,8 +79,18 @@ The final unsigned Release archive passed at `build/distribution/Fasting-last-me
 
 `FastingDemoCapture.testCaptureThreeTabScreens` passed in `build/readme-20261006-174856/Capture.xcresult`. `scripts/capture_readme.py` captured the current three tabs using isolated sample data, exported named XCTest attachments and regenerated the English three-iPhone cover. The cover now shows History, Fast and Last Meal; the new light and dark screenshots and cover were visually reviewed. The simulator appearance was restored and its status-bar override cleared afterward. The earlier video and GIF still illustrate the Fast and History walkthrough; the README includes separate current Last Meal screenshots.
 
-## Still requires Apple-account validation
+## Signed distribution and production CloudKit
 
-Real synchronization between devices has not been tested. It requires a registered CloudKit container, signing with the appropriate team, schema initialization and two devices using the same Apple Account. Capabilities, the private-container configuration and initialization command are implemented; the README describes the setup.
+The App Store Connect record uses bundle ID `com.rento.fasting` and the provisional name **Fasting timer**. The signed Release archive passed at `build/distribution/Fasting-testflight.xcarchive`. App Store distribution export and upload both passed; Apple processed version **0.1.0 (1)** with `processingState = VALID`. Its export-compliance response is saved, and the build is assigned to **Internal Testers** with `internalBuildState = IN_BETA_TESTING`. The author's tester account is invited. English and Spanish testing notes are saved in TestFlight.
+
+The exported package passed strict code-signature verification and uses an App Store provisioning profile with production iCloud and push entitlements. The IPA, signing reports, TestFlight verification report and upload logs are retained in the ignored `build/distribution/` directory. This is an internal beta; no public App Store review submission or external tester group was created.
+
+A signed Debug build was installed on the connected iPhone 15 Pro Max. Running it with `-InitializeCloudKitSchema` generated `CD_FastingSession` and `CD_MealEntry` using a disposable store; the success message and the new record types were observed. CloudKit Console confirmed **Changes Deployed: The schema is deployed to Production** for `iCloud.com.rento.fasting`. The app continues to use the private database.
+
+The source Info.plist declares that the app does not use non-exempt encryption. The app uses Apple-provided storage and networking and contains no custom encryption implementation. The initial uploaded package predates this metadata declaration, so `usesNonExemptEncryption = false` was saved for that build through App Store Connect. An incremental unsigned Release build passed after adding the declaration, and its built Info.plist contains `ITSAppUsesNonExemptEncryption = false`. Property-list validation and `git diff --check` also passed.
+
+## Remaining device validation
+
+Real synchronization between two devices has not been tested. Container registration, signing, schema initialization and production deployment are complete; the remaining check requires two devices using the same Apple Account. The README describes the setup.
 
 Execution on iOS 17–18 and iPad has not been tested in these validation runs. The project declares iOS 17 support, with availability-guarded alternatives to Liquid Glass APIs.
